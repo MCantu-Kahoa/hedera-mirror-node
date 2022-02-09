@@ -48,11 +48,10 @@ abstract class AbstractContractCallTransactionHandler implements TransactionHand
     protected final EntityListener entityListener;
     protected final EntityProperties entityProperties;
 
-    @SuppressWarnings("deprecation")
     protected final void onContractResult(RecordItem recordItem, ContractResult contractResult,
                                           ContractFunctionResult functionResult) {
         // set function result related properties where applicable
-        if (functionResult != ContractFunctionResult.getDefaultInstance()) {
+        if (functionResult != ContractFunctionResult.getDefaultInstance() && functionResult.hasContractID()) {
             long consensusTimestamp = recordItem.getConsensusTimestamp();
             List<Long> createdContractIds = new ArrayList<>();
             boolean persist = shouldPersistCreatedContractIDs(recordItem);
