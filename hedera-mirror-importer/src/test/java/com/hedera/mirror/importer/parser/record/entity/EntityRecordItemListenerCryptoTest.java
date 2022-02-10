@@ -324,8 +324,8 @@ class EntityRecordItemListenerCryptoTest extends AbstractEntityRecordItemListene
         bodyBuilder.getCryptoUpdateAccountBuilder().setProxyAccountID(AccountID.getDefaultInstance());
         transactionBody = bodyBuilder.build();
         transaction = Transaction.newBuilder().setSignedTransactionBytes(SignedTransaction.newBuilder()
-                        .setBodyBytes(transactionBody.toByteString())
-                        .build().toByteString())
+                .setBodyBytes(transactionBody.toByteString())
+                .build().toByteString())
                 .build();
         TransactionRecord record = transactionRecordSuccess(transactionBody);
 
@@ -619,7 +619,7 @@ class EntityRecordItemListenerCryptoTest extends AbstractEntityRecordItemListene
         int unknownResult = -1000;
         Transaction transaction = cryptoCreateTransaction();
         TransactionBody transactionBody = getTransactionBody(transaction);
-        TransactionRecord record = transactionRecord(transactionBody, unknownResult);
+        TransactionRecord record = transactionRecord(transactionBody, unknownResult, false);
 
         parseRecordItemAndCommit(new RecordItem(transaction, record));
 
@@ -669,11 +669,17 @@ class EntityRecordItemListenerCryptoTest extends AbstractEntityRecordItemListene
     }
 
     private TransactionRecord transactionRecord(TransactionBody transactionBody, ResponseCodeEnum responseCode) {
-        return transactionRecord(transactionBody, responseCode.getNumber());
+        return transactionRecord(transactionBody, responseCode.getNumber(), false);
     }
 
-    private TransactionRecord transactionRecord(TransactionBody transactionBody, int status) {
-        return buildTransactionRecord(recordBuilder -> recordBuilder.getReceiptBuilder().setAccountID(accountId1),
+    private TransactionRecord transactionRecord(TransactionBody transactionBody, int status, boolean precompile) {
+        return buildTransactionRecord(recordBuilder -> {
+                    recordBuilder.getReceiptBuilder().setAccountID(accountId1);
+
+                    if (precompile) {
+                        buildContractFunctionResult(recordBuilder.getContractCallResultBuilder());
+                    }
+                },
                 transactionBody, status);
     }
 
