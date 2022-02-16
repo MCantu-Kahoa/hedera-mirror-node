@@ -20,18 +20,16 @@ package com.hedera.mirror.importer.parser.record.transactionhandler;
  * ‍
  */
 
-import com.hederahashgraph.api.proto.java.ContractFunctionResult;
-import com.hederahashgraph.api.proto.java.ContractID;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 import com.hedera.mirror.common.domain.contract.Contract;
 import com.hedera.mirror.common.domain.contract.ContractResult;
 import com.hedera.mirror.common.domain.entity.EntityId;
+import com.hedera.mirror.common.domain.entity.EntityType;
 import com.hedera.mirror.common.domain.transaction.RecordFile;
 import com.hedera.mirror.common.domain.transaction.RecordItem;
 import com.hedera.mirror.common.domain.transaction.Transaction;
+import com.hedera.mirror.importer.domain.ContractResultService;
 import com.hedera.mirror.importer.domain.EntityIdService;
 import com.hedera.mirror.importer.parser.record.entity.EntityListener;
 import com.hedera.mirror.importer.parser.record.entity.EntityProperties;
@@ -39,6 +37,7 @@ import com.hedera.mirror.importer.parser.record.entity.EntityProperties;
 @RequiredArgsConstructor
 abstract class AbstractContractCallTransactionHandler implements TransactionHandler {
 
+    protected final ContractResultService contractResultService;
     protected final EntityIdService entityIdService;
     protected final EntityListener entityListener;
     protected final EntityProperties entityProperties;
@@ -53,29 +52,21 @@ abstract class AbstractContractCallTransactionHandler implements TransactionHand
         return contract;
     }
 
-    protected ContractResult getBaseContractResult(Transaction transaction, RecordItem recordItem,
-                                                   ContractFunctionResult contractFunctionResult) {
-        ContractResult contractResult = new ContractResult();
-        contractResult.setConsensusTimestamp(recordItem.getConsensusTimestamp());
-        contractResult.setContractId(transaction.getEntityId());
-        contractResult.setPayerAccountId(transaction.getPayerAccountId());
+    protected ContractResult getBaseContractResult(Transaction transaction, RecordItem recordItem) {
+        ContractResult contractResult = contractResultService.getContractResult(recordItem);
+        contractResult.setContractId(transaction.getEntityId()); // overwrite for case of null entityId on failure
 
         long consensusTimestamp = recordItem.getConsensusTimestamp();
-        List<Long> createdContractIds = new ArrayList<>();
         boolean persist = shouldPersistCreatedContractIDs(recordItem);
 
-        for (ContractID createdContractId : contractFunctionResult.getCreatedContractIDsList()) {
-            EntityId contractId = entityIdService.lookup(createdContractId);
-            createdContractIds.add(contractId.getId());
-
+        for (Long contractEncodedId : contractResult.getCreatedContractIds()) {
+            EntityId contractId = EntityId.of(contractEncodedId, EntityType.CONTRACT);
             // The parent contract ID can also sometimes appear in the created contract IDs list, so exclude it
             if (persist && !EntityId.isEmpty(contractId) && !contractId.equals(
                     contractResult.getContractId())) {
                 doUpdateEntity(getContract(contractId, consensusTimestamp), recordItem);
             }
         }
-
-        contractResult.setCreatedContractIds(createdContractIds);
 
         return contractResult;
     }
