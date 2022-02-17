@@ -97,7 +97,6 @@ import com.hedera.mirror.common.exception.InvalidEntityException;
 import com.hedera.mirror.common.util.DomainUtils;
 import com.hedera.mirror.importer.addressbook.AddressBookService;
 import com.hedera.mirror.importer.domain.ContractResultService;
-import com.hedera.mirror.importer.domain.EntityIdService;
 import com.hedera.mirror.importer.domain.TransactionFilterFields;
 import com.hedera.mirror.importer.exception.ImporterException;
 import com.hedera.mirror.importer.exception.InvalidDatasetException;
@@ -130,7 +129,6 @@ public class EntityRecordItemListener implements RecordItemListener {
                                     TransactionHandlerFactory transactionHandlerFactory,
                                     FileDataRepository fileDataRepository,
                                     EntityRepository entityRepository,
-                                    EntityIdService entityIdService,
                                     ContractResultService contractResultService) {
         this.addressBookService = addressBookService;
         this.contractResultService = contractResultService;
@@ -283,8 +281,8 @@ public class EntityRecordItemListener implements RecordItemListener {
         transaction.setValidStartNs(DomainUtils.timeStampInNanos(transactionId.getTransactionValidStart()));
 
         if (txRecord.hasParentConsensusTimestamp()) {
-            transaction.setParentConsensusTimestamp(DomainUtils
-                    .timestampInNanosMax(txRecord.getParentConsensusTimestamp()));
+            transaction.setParentConsensusTimestamp(
+                    DomainUtils.timestampInNanosMax(txRecord.getParentConsensusTimestamp()));
         }
 
         return transaction;
@@ -324,8 +322,8 @@ public class EntityRecordItemListener implements RecordItemListener {
                 var alias = DomainUtils.toBytes(accountID.getAlias());
                 return entityRepository.findByAlias(alias)
                         .map(id -> EntityId.of(id, EntityType.ACCOUNT))
-                        .orElseThrow(() -> new InvalidDatasetException("AccountID not present for alias: " + Hex
-                                .encodeHexString(alias)));
+                        .orElseThrow(() -> new InvalidDatasetException("AccountID not present for alias: " +
+                                Hex.encodeHexString(alias)));
             default:
                 throw new InvalidDatasetException("Unsupported AccountID: " + accountID);
         }
