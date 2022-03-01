@@ -26,7 +26,7 @@ const yaml = require('js-yaml');
 const parseDuration = require('parse-duration');
 const path = require('path');
 const {InvalidConfigError} = require('./errors/invalidConfigError');
-const {cloudProviders, networks, defaultBucketNames} = require('./constants');
+const {cloudProviders, networks, defaultBucketNames} = require('./utils/constants');
 
 const defaultConfigName = 'application';
 const config = {};

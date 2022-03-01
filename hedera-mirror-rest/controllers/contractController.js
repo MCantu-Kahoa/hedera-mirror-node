@@ -28,7 +28,7 @@ const {
     limit: {default: defaultLimit},
   },
 } = require('../config');
-const constants = require('../constants');
+const constants = require('../utils/constants');
 const EntityId = require('../entityId');
 
 // errors
@@ -37,15 +37,15 @@ const {NotFoundError} = require('../errors/notFoundError');
 
 const {Contract, ContractLog, ContractResult, FileData, TransactionResult} = require('../model');
 const {ContractService, RecordFileService, TransactionService} = require('../service');
-const TransactionId = require('../transactionId');
-const utils = require('../utils');
+const TransactionId = require('../utils/transactionId');
+const utils = require('../utils/utils');
 const {
   ContractViewModel,
   ContractLogViewModel,
   ContractResultViewModel,
   ContractResultDetailsViewModel,
 } = require('../viewmodel');
-const {httpStatusCodes} = require('../constants');
+const {httpStatusCodes} = require('../utils/constants');
 
 const contractSelectFields = [
   Contract.AUTO_RENEW_PERIOD,

@@ -20,7 +20,7 @@
 
 'use strict';
 
-const constants = require('../constants');
+const constants = require('../../utils/constants');
 
 class Transaction {
   static tableAlias = 't';

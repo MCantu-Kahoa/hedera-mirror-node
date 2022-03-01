@@ -20,7 +20,7 @@
 
 'use strict';
 
-const utils = require('./utils');
+const utils = require('../../utils/utils');
 
 const commonFields = [
   'auto_renew_period',

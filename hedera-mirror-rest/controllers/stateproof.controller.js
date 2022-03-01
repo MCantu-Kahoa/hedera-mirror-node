@@ -21,16 +21,16 @@
 'use strict';
 
 const _ = require('lodash');
-const config = require('./config');
-const constants = require('./constants');
-const EntityId = require('./entityId');
-const s3client = require('./s3client');
-const {CompositeRecordFile} = require('./stream');
-const TransactionId = require('./transactionId');
-const utils = require('./utils');
-const {DbError} = require('./errors/dbError');
-const {NotFoundError} = require('./errors/notFoundError');
-const {FileDownloadError} = require('./errors/fileDownloadError');
+const config = require('../config');
+const constants = require('../utils/constants');
+const EntityId = require('../entityId');
+const s3client = require('../model/s3-client.model');
+const {CompositeRecordFile} = require('../stream');
+const TransactionId = require('../utils/transactionId');
+const utils = require('../utils/utils');
+const {DbError} = require('../errors/dbError');
+const {NotFoundError} = require('../errors/notFoundError');
+const {FileDownloadError} = require('../errors/fileDownloadError');
 
 /**
  * Get the consensus_timestamp of the transaction. Throws exception if no such successful transaction found or multiple such

@@ -24,12 +24,12 @@ const {
   response: {
     limit: {default: defaultLimit},
   },
-} = require('./config');
-const constants = require('./constants');
-const EntityId = require('./entityId');
-const {SignatureType} = require('./model');
-const utils = require('./utils');
-const {NotFoundError} = require('./errors/notFoundError');
+} = require('../config');
+const constants = require('../utils/constants');
+const EntityId = require('../entityId');
+const {SignatureType} = require('../model');
+const utils = require('../utils/utils');
+const {NotFoundError} = require('../errors/notFoundError');
 
 const scheduleSelectFields = [
   'e.key',

@@ -25,14 +25,14 @@ const {
   response: {
     limit: {default: defaultLimit},
   },
-} = require('./config');
-const constants = require('./constants');
-const EntityId = require('./entityId');
-const utils = require('./utils');
-const {NotFoundError} = require('./errors/notFoundError');
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
-const {TopicMessage} = require('./model');
-const {TopicMessageViewModel} = require('./viewmodel');
+} = require('../config');
+const constants = require('../utils/constants');
+const EntityId = require('../entityId');
+const utils = require('../utils/utils');
+const {NotFoundError} = require('../errors/notFoundError');
+const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+const {TopicMessage} = require('../model');
+const {TopicMessageViewModel} = require('../viewmodel');
 
 const columnMap = {
   sequencenumber: TopicMessage.SEQUENCE_NUMBER,

@@ -22,7 +22,7 @@
 
 const log4js = require('log4js');
 const {INT_SIZE} = require('./constants');
-const TransactionId = require('../transactionId');
+const TransactionId = require('../utils/transactionId');
 
 const logger = log4js.getLogger();
 

@@ -22,7 +22,7 @@
 
 const _ = require('lodash');
 const EntityId = require('../entityId');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 /**
  * Contract results view model

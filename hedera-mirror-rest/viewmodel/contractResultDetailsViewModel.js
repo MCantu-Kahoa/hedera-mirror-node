@@ -24,7 +24,7 @@ const ContractLogResultsViewModel = require('./contractResultLogViewModel');
 const ContractResultStateChangeViewModel = require('./contractResultStateChangeViewModel');
 const ContractResultViewModel = require('./contractResultViewModel');
 const {TransactionResult} = require('../model');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 /**
  * Contract result details view model

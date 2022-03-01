@@ -21,7 +21,7 @@
 'use strict';
 
 const _ = require('lodash');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+const {InvalidArgumentError} = require('../../errors/invalidArgumentError');
 
 const protoToName = {
   7: 'CONTRACTCALL',

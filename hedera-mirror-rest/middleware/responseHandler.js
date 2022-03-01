@@ -20,7 +20,7 @@
 
 'use strict';
 
-const constants = require('../constants');
+const constants = require('../utils/constants');
 const {NotFoundError} = require('../errors/notFoundError');
 
 // response middleware that pulls response data passed through request and sets in json response

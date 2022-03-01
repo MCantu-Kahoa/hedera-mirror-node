@@ -29,7 +29,7 @@ const url = require('url');
 // files
 const config = require('../config');
 const oasHandler = require('./openapiHandler');
-const {ipMask} = require('../utils');
+const {ipMask} = require('../utils/utils');
 
 const onMetricsAuthenticate = async (req, username, password) => {
   return new Promise(function (resolve, reject) {

@@ -21,8 +21,8 @@
 'use strict';
 
 const long = require('long');
-const EntityId = require('./entityId');
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
+const EntityId = require('../entityId');
+const {InvalidArgumentError} = require('../errors/invalidArgumentError');
 
 class TransactionId {
   constructor(entityId, validStartSeconds, validStartNanos) {

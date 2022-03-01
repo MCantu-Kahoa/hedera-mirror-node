@@ -20,8 +20,8 @@
 
 'use strict';
 
-const base32 = require('./base32');
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
+const base32 = require('../../utils/base32');
+const {InvalidArgumentError} = require('../../errors/invalidArgumentError');
 
 class AccountAlias {
   /**

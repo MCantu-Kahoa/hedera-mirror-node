@@ -20,11 +20,11 @@
 
 'use strict';
 
-const config = require('./config');
-const constants = require('./constants');
-const entityId = require('./entityId');
-const {NotFoundError} = require('./errors/notFoundError');
-const utils = require('./utils');
+const config = require('../config');
+const constants = require('../utils/constants');
+const entityId = require('../entityId');
+const {NotFoundError} = require('../errors/notFoundError');
+const utils = require('../utils/utils');
 
 const totalSupply = 5000000000000000000n;
 const unreleasedSupplyAccounts = config.network.unreleasedSupplyAccounts.map((a) => entityId.parse(a).getEncodedId());

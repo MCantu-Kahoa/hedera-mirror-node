@@ -23,8 +23,8 @@
 const _ = require('lodash');
 
 const EntityId = require('../entityId');
-const utils = require('../utils');
-const TransactionId = require('../model/transactionId');
+const utils = require('../utils/utils');
+const TransactionId = require('../model/index');
 const {TransactionID} = require('@hashgraph/proto');
 const TransactionIdViewModel = require('./transactionIdViewModel');
 

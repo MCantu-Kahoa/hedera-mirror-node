@@ -20,15 +20,15 @@
 
 'use strict';
 
-const AccountAlias = require('./accountAlias');
-const base32 = require('./base32');
-const {getAccountContractUnionQueryWithOrder} = require('./accountContract');
-const constants = require('./constants');
-const EntityId = require('./entityId');
-const utils = require('./utils');
-const transactions = require('./transactions');
-const {NotFoundError} = require('./errors/notFoundError');
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
+const AccountAlias = require('../model/account/account-alias.model');
+const base32 = require('../utils/base32');
+const {getAccountContractUnionQueryWithOrder} = require('../model/account/account-contract.model');
+const constants = require('../utils/constants');
+const EntityId = require('../entityId');
+const utils = require('../utils/utils');
+const transactions = require('./transaction.controller');
+const {NotFoundError} = require('../errors/notFoundError');
+const {InvalidArgumentError} = require('../errors/invalidArgumentError');
 
 /**
  * Processes one row of the results of the SQL query and format into API return format

@@ -20,15 +20,15 @@
 
 'use strict';
 
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+const {InvalidArgumentError} = require('../../errors/invalidArgumentError');
 
-class TokenFreezeStatus {
-  static STATUSES = ['NOT_APPLICABLE', 'FROZEN', 'UNFROZEN'];
+class TokenKycStatus {
+  static STATUSES = ['NOT_APPLICABLE', 'GRANTED', 'REVOKED'];
 
   constructor(id) {
     this._id = Number(id);
     if (Number.isNaN(this._id) || this._id < 0 || this._id > 2) {
-      throw new InvalidArgumentError(`Invalid token freeze status id ${id}`);
+      throw new InvalidArgumentError(`Invalid token kyc status id ${id}`);
     }
   }
 
@@ -41,8 +41,8 @@ class TokenFreezeStatus {
   }
 
   toString() {
-    return TokenFreezeStatus.STATUSES[this._id];
+    return TokenKycStatus.STATUSES[this._id];
   }
 }
 
-module.exports = TokenFreezeStatus;
+module.exports = TokenKycStatus;

@@ -18,8 +18,14 @@
  * ‍
  */
 
-'use strict';
-
 module.exports = {
   ContractController: require('./contractController'),
+  TokenController: require('./token.controller'),
+  TopicController: require('./topic.controller'),
+  TransactionController: require('./transaction.controller'),
+  AccountController: require('./account.controller'),
+  BalanceController: require('./balance.controller'),
+  NetworkController: require('./network.controller'),
+  ScheduleController: require('./schedule.controller'),
+  StateproofController: require('./stateproof.controller'),
 };

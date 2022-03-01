@@ -29,13 +29,13 @@ const math = require('mathjs');
 const util = require('util');
 
 const constants = require('./constants');
-const EntityId = require('./entityId');
-const config = require('./config');
-const ed25519 = require('./ed25519');
-const {DbError} = require('./errors/dbError');
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
-const {InvalidClauseError} = require('./errors/invalidClauseError');
-const {TransactionResult, TransactionType} = require('./model');
+const EntityId = require('../entityId');
+const config = require('../config');
+const ed25519 = require('../ed25519');
+const {DbError} = require('../errors/dbError');
+const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+const {InvalidClauseError} = require('../errors/invalidClauseError');
+const {TransactionResult, TransactionType} = require('../model');
 const {keyTypes} = require('./constants');
 
 const responseLimit = config.response.limit;
@@ -987,7 +987,7 @@ const ipMask = (ip) => {
  * @param {boolean} mock
  */
 const getPoolClass = (mock = false) => {
-  const Pool = mock ? require('./__tests__/mockpool') : require('pg').Pool;
+  const Pool = mock ? require('../__tests__/mockpool') : require('pg').Pool;
   Pool.prototype.queryQuietly = async function (query, params = [], preQueryHint = undefined) {
     let client;
     let result;

@@ -20,8 +20,8 @@
 
 'use strict';
 
-const {httpStatusCodes} = require('../constants');
-const constants = require('../constants');
+const {httpStatusCodes} = require('../utils/constants');
+const constants = require('../utils/constants');
 
 const defaultStatusCode = httpStatusCodes.INTERNAL_ERROR;
 

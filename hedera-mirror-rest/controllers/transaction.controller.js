@@ -22,11 +22,11 @@
 
 const _ = require('lodash');
 
-const utils = require('./utils');
-const constants = require('./constants');
-const EntityId = require('./entityId');
-const TransactionId = require('./transactionId');
-const {NotFoundError} = require('./errors/notFoundError');
+const utils = require('../utils/utils');
+const constants = require('../utils/constants');
+const EntityId = require('../entityId');
+const TransactionId = require('../utils/transactionId');
+const {NotFoundError} = require('../errors/notFoundError');
 const {
   AssessedCustomFee,
   CryptoTransfer,
@@ -35,8 +35,8 @@ const {
   Transaction,
   TransactionResult,
   TransactionType,
-} = require('./model');
-const {AssessedCustomFeeViewModel, NftTransferViewModel} = require('./viewmodel');
+} = require('../model');
+const {AssessedCustomFeeViewModel, NftTransferViewModel} = require('../viewmodel');
 
 const transactionFields = [
   Transaction.CHARGED_TX_FEE,

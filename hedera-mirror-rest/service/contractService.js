@@ -29,7 +29,7 @@ const {
     limit: {default: defaultLimit},
   },
 } = require('../config');
-const {orderFilterValues} = require('../constants');
+const {orderFilterValues} = require('../utils/constants');
 
 /**
  * Contract retrieval business logic

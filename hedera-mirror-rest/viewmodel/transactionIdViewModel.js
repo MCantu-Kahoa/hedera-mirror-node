@@ -24,7 +24,7 @@ const _ = require('lodash');
 
 const EntityId = require('../entityId');
 const {TransactionID} = require('@hashgraph/proto');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 /**
  * TransactionId view model

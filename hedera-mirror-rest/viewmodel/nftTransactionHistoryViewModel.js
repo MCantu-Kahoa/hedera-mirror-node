@@ -21,7 +21,7 @@
 'use strict';
 
 const EntityId = require('../entityId');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 const {TransactionType} = require('../model');
 
 /**

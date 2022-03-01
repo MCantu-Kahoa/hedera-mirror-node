@@ -22,7 +22,7 @@
 
 const ContractLogResultsViewModel = require('./contractResultLogViewModel');
 const EntityId = require('../entityId');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 /**
  * Contract log view model

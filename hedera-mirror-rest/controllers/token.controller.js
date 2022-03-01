@@ -26,26 +26,26 @@ const {
   response: {
     limit: {default: defaultLimit},
   },
-} = require('./config');
-const constants = require('./constants');
-const EntityId = require('./entityId');
-const utils = require('./utils');
+} = require('../config');
+const constants = require('../utils/constants');
+const EntityId = require('../entityId');
+const utils = require('../utils/utils');
 
 // errors
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
-const {NotFoundError} = require('./errors/notFoundError');
+const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+const {NotFoundError} = require('../errors/notFoundError');
 
 // models
-const {CustomFee, Entity, Nft, NftTransfer, Token, Transaction, TransactionType} = require('./model');
+const {CustomFee, Entity, Nft, NftTransfer, Token, Transaction, TransactionType} = require('../model');
 
 // middleware
-const {httpStatusCodes} = require('./constants');
+const {httpStatusCodes} = require('../utils/constants');
 
 // services
-const {NftService, TokenService} = require('./service');
+const {NftService, TokenService} = require('../service');
 
 // view models
-const {CustomFeeViewModel, NftViewModel, NftTransactionHistoryViewModel} = require('./viewmodel');
+const {CustomFeeViewModel, NftViewModel, NftTransactionHistoryViewModel} = require('../viewmodel');
 
 // select columns
 const sqlQueryColumns = {

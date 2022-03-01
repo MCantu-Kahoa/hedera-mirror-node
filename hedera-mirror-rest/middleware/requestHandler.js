@@ -22,9 +22,9 @@
 
 const httpContext = require('express-http-context');
 const qs = require('qs');
-const constants = require('../constants');
-const {randomString} = require('../utils');
-const {httpStatusCodes} = require('../constants');
+const constants = require('../utils/constants');
+const {randomString} = require('../utils/utils');
+const {httpStatusCodes} = require('../utils/constants');
 
 const requestLogger = async (req, res, next) => {
   const requestId = await randomString(8);

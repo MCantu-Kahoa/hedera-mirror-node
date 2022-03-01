@@ -22,8 +22,8 @@
 
 const AWS = require('aws-sdk');
 const querystring = require('querystring');
-const config = require('./config');
-const {cloudProviders, defaultCloudProviderEndpoints} = require('./constants');
+const config = require('../config');
+const {cloudProviders, defaultCloudProviderEndpoints} = require('../utils/constants');
 
 class S3Client {
   constructor(s3, hasCredentials, gcpProjectId) {

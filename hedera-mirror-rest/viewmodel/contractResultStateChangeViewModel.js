@@ -21,8 +21,8 @@
 'use strict';
 
 const EntityId = require('../entityId');
-const constants = require('../constants');
-const utils = require('../utils');
+const constants = require('../utils/constants');
+const utils = require('../utils/utils');
 
 /**
  * Contract result state change view model

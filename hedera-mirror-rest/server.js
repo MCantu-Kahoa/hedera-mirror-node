@@ -31,27 +31,17 @@ const log4js = require('log4js');
 const compression = require('compression');
 
 // local files
-const accounts = require('./accounts');
-const balances = require('./balances');
+const {router: v1Router} = require('./routes/v1');
 const config = require('./config');
-const constants = require('./constants');
+const constants = require('./utils/constants');
 const health = require('./health');
-const network = require('./network');
-const schedules = require('./schedules');
-const stateproof = require('./stateproof');
-const tokens = require('./tokens');
-const topicmessage = require('./topicmessage');
-const transactions = require('./transactions');
-const {getPoolClass, isTestEnv, loadPgRange} = require('./utils');
+const {getPoolClass, isTestEnv, loadPgRange} = require('./utils/utils');
 const {handleError} = require('./middleware/httpErrorHandler');
 const {metricsHandler, recordIpAndEndpoint} = require('./middleware/metricsHandler');
 const {serveSwaggerDocs, openApiValidator} = require('./middleware/openapiHandler');
 const {responseHandler} = require('./middleware/responseHandler');
 const {requestLogger, requestQueryParser} = require('./middleware/requestHandler');
 const fs = require('fs');
-
-// routes
-const {ContractRoutes} = require('./routes');
 
 // Logger
 const logger = log4js.getLogger();
@@ -147,47 +137,7 @@ if (config.metrics.enabled) {
   app.use(metricsHandler());
 }
 
-// accounts routes
-app.getAsync(`${apiPrefix}/accounts`, accounts.getAccounts);
-app.getAsync(`${apiPrefix}/accounts/:accountAliasOrAccountId`, accounts.getOneAccount);
-
-// balances routes
-app.getAsync(`${apiPrefix}/balances`, balances.getBalances);
-
-// contracts routes
-app.useAsync(`${apiPrefix}/${ContractRoutes.resource}`, ContractRoutes.router);
-
-// network routes
-app.getAsync(`${apiPrefix}/network/supply`, network.getSupply);
-
-// schedules routes
-app.getAsync(`${apiPrefix}/schedules`, schedules.getSchedules);
-app.getAsync(`${apiPrefix}/schedules/:scheduleId`, schedules.getScheduleById);
-
-// stateproof route
-if (config.stateproof.enabled || isTestEnv()) {
-  logger.info('stateproof REST API is enabled, install handler');
-  app.getAsync(`${apiPrefix}/transactions/:transactionId/stateproof`, stateproof.getStateProofForTransaction);
-} else {
-  logger.info('stateproof REST API is disabled');
-}
-
-// tokens routes
-app.getAsync(`${apiPrefix}/tokens`, tokens.getTokensRequest);
-app.getAsync(`${apiPrefix}/tokens/:tokenId`, tokens.getTokenInfoRequest);
-app.getAsync(`${apiPrefix}/tokens/:tokenId/balances`, tokens.getTokenBalances);
-app.getAsync(`${apiPrefix}/tokens/:tokenId/nfts`, tokens.getNftTokensRequest);
-app.getAsync(`${apiPrefix}/tokens/:tokenId/nfts/:serialNumber`, tokens.getNftTokenInfoRequest);
-app.getAsync(`${apiPrefix}/tokens/:tokenId/nfts/:serialNumber/transactions`, tokens.getNftTransferHistoryRequest);
-
-// topics routes
-app.getAsync(`${apiPrefix}/topics/:topicId/messages`, topicmessage.getTopicMessages);
-app.getAsync(`${apiPrefix}/topics/:topicId/messages/:sequenceNumber`, topicmessage.getMessageByTopicAndSequenceRequest);
-app.getAsync(`${apiPrefix}/topics/messages/:consensusTimestamp`, topicmessage.getMessageByConsensusTimestamp);
-
-// transactions routes
-app.getAsync(`${apiPrefix}/transactions`, transactions.getTransactions);
-app.getAsync(`${apiPrefix}/transactions/:transactionId`, transactions.getTransactionsById);
+app.use(`${apiPrefix}`, v1Router);
 
 // record ip metrics if enabled
 if (config.metrics.ipMetrics) {
