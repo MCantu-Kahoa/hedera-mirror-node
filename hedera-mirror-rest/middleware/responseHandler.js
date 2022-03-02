@@ -20,8 +20,8 @@
 
 'use strict';
 
-const constants = require('../utils/constants');
-const {NotFoundError} = require('../errors/notFoundError');
+import * as constants from '../utils/constants.js'
+import {NotFoundError} from '../errors/notFoundError.js';
 
 // response middleware that pulls response data passed through request and sets in json response
 // next param is required to ensure express maps to this middleware and can also be used to pass onto future middleware
@@ -42,6 +42,6 @@ const responseHandler = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   responseHandler,
 };

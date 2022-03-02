@@ -52,4 +52,4 @@ class AssessedCustomFee {
   }
 }
 
-module.exports = AssessedCustomFee;
+export default {AssessedCustomFee};

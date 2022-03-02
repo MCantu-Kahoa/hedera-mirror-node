@@ -20,9 +20,9 @@
 
 'use strict';
 
-const long = require('long');
-const EntityId = require('../entityId');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+import * as long from 'long';
+import * as EntityId from '../entityId.js'
+import {InvalidArgumentError}  from '../errors/invalidArgumentError.js';
 
 class TransactionId {
   constructor(entityId, validStartSeconds, validStartNanos) {
@@ -76,6 +76,6 @@ const fromString = (transactionIdStr) => {
   return new TransactionId(entityId, seconds, nanos);
 };
 
-module.exports = {
+export default {
   fromString,
 };

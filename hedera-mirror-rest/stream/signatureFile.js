@@ -20,11 +20,10 @@
 
 'use strict';
 
-const {BYTE_SIZE, INT_SIZE} = require('./constants');
-const {SHA_384} = require('./hashObject');
-const HashObject = require('./hashObject');
-const SignatureObject = require('./signatureObject');
-const {readLengthAndBytes, readNBytes} = require('./utils');
+import {BYTE_SIZE, INT_SIZE} from './constants.js';
+import HashObject from './hashObject.js';
+import SignatureObject from './signatureObject.js';
+import {readLengthAndBytes, readNBytes} from './utils.js';
 
 // version, object stream signature version
 const V5_FILE_HASH_OFFSET = BYTE_SIZE + INT_SIZE;
@@ -91,4 +90,4 @@ class SignatureFile {
   }
 }
 
-module.exports = SignatureFile;
+export default SignatureFile;

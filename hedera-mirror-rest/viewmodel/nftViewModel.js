@@ -20,8 +20,8 @@
 
 'use strict';
 
-const utils = require('../utils/utils');
-const EntityId = require('../entityId');
+import * as utils from '../utils/utils.js'
+import * as EntityId from '../entityId.js'
 
 /**
  * NFT view model
@@ -38,4 +38,4 @@ class NftViewModel {
   }
 }
 
-module.exports = NftViewModel;
+export default {NftViewModel};

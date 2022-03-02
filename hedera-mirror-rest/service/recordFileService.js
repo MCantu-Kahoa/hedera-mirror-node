@@ -20,10 +20,10 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const BaseService = require('./baseService');
-const {RecordFile} = require('../model');
+import {BaseService} from  './baseService.js';
+import {RecordFile} from  '../model/index.js';
 
 /**
  * RecordFile retrieval business logic
@@ -60,4 +60,4 @@ class RecordFileService extends BaseService {
   }
 }
 
-module.exports = new RecordFileService();
+export default new RecordFileService();

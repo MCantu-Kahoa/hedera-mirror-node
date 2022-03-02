@@ -20,8 +20,8 @@
 
 'use strict';
 
-const config = require('./config');
-const {
+import {getConfig as config} from './config.js';
+import {
   checkAPIResponseError,
   checkElementsOrder,
   checkRespObjDefined,
@@ -33,11 +33,11 @@ const {
   getUrl,
   testRunner,
   CheckRunner,
-} = require('./utils');
+} from './utils.js';
 
 const resource = 'topic';
-const resourceLimit = config[resource].limit || DEFAULT_LIMIT;
-const {topicId} = config[resource];
+const resourceLimit = config()[resource].limit || DEFAULT_LIMIT;
+const {topicId} = config()[resource];
 const jsonRespKey = 'messages';
 const mandatoryParams = [
   'consensus_timestamp',
@@ -326,7 +326,7 @@ const runTests = async (server, testResult) => {
   ]);
 };
 
-module.exports = {
+export {
   resource,
   runTests,
 };

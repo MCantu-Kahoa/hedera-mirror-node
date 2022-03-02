@@ -21,19 +21,19 @@
 'use strict';
 
 // ext libraries
-const extend = require('extend');
-const client = require('prom-client');
-const swStats = require('swagger-stats');
-const url = require('url');
+import extend from 'extend';
+import client from 'prom-client';
+import swStats from 'swagger-stats';
+import url from 'url';
 
 // files
-const config = require('../config');
-const oasHandler = require('./openapiHandler');
-const {ipMask} = require('../utils/utils');
+import {getConfig as config} from '../config.js';
+import {ipMask} from '../utils/utils.js';
+import * as oasHandler from './openapiHandler.js';
 
 const onMetricsAuthenticate = async (req, username, password) => {
   return new Promise(function (resolve, reject) {
-    const match = username === config.metrics.config.username && password === config.metrics.config.password;
+    const match = username === config().metrics.config.username && password === config().metrics.config.password;
     resolve(match);
   }).catch((err) => {
     logger.debug(`Auth error: ${err}`);
@@ -62,9 +62,9 @@ const metricsHandler = () => {
   };
 
   // combine defaultMetricsConfig with file defined configs
-  extend(true, defaultMetricsConfig, config.metrics.config);
+  extend(true, defaultMetricsConfig, config().metrics.config);
 
-  const swaggerPath = `${config.metrics.config.uriPath}`;
+  const swaggerPath = `${config().metrics.config.uriPath}`;
   const metricsPath = `${swaggerPath}/metrics/`;
   const swaggerStats = swStats.getMiddleware(defaultMetricsConfig);
 
@@ -81,7 +81,7 @@ const metricsHandler = () => {
   };
 };
 
-module.exports = {
+export {
   metricsHandler,
   recordIpAndEndpoint,
 };

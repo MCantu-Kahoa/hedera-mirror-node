@@ -21,15 +21,15 @@
 'use strict';
 
 // ext libraries
-const fs = require('fs');
-const path = require('path');
-const swaggerUi = require('swagger-ui-express');
-const _ = require('lodash');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+import _ from 'lodash';
+import yaml from 'js-yaml';
 
 // files
-const config = require('../config');
-const OpenApiValidator = require('express-openapi-validator');
+import {getConfig as config} from '../config.js';
+import OpenApiValidator from 'express-openapi-validator';
 
 let v1OpenApiDocument;
 
@@ -52,7 +52,7 @@ const isInValidVersionRange = (apiVersion) => {
  */
 const getSpecPath = (apiVersion) => {
   const apiVersionPath = isInValidVersionRange(apiVersion) ? `v${apiVersion}` : 'v1';
-  return `api/${apiVersionPath}/${config.openapi.specFileName}.yml`;
+  return `api/${apiVersionPath}/${config().openapi.specFileName}.yml`;
 };
 
 /**
@@ -89,7 +89,7 @@ const serveSwaggerDocs = (app) => {
       tagsSorter: 'alpha',
     },
   };
-  app.use(`/api/v1/${config.openapi.swaggerUIPath}`, swaggerUi.serve, swaggerUi.setup(getV1OpenApiObject(), options));
+  app.use(`/api/v1/${config().openapi.swaggerUIPath}`, swaggerUi.serve, swaggerUi.setup(getV1OpenApiObject(), options));
 };
 
 const openApiValidator = (app) => {
@@ -103,7 +103,7 @@ const openApiValidator = (app) => {
   );
 };
 
-module.exports = {
+export {
   getV1OpenApiObject,
   serveSwaggerDocs,
   openApiValidator,

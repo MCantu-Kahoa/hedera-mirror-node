@@ -20,7 +20,7 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
 class TopicMessage {
   /**
@@ -59,4 +59,4 @@ class TopicMessage {
   }
 }
 
-module.exports = TopicMessage;
+export default {TopicMessage};

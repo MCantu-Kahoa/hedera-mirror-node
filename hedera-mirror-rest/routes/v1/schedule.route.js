@@ -1,5 +1,5 @@
-const {Router} = require('@awaitjs/express');
-const {ScheduleController} = require('../../controllers');
+import {Router} from '@awaitjs/express';
+import {ScheduleController} from '../../controllers/index.js';
 
 const router = Router();
 const resource = 'schedules';
@@ -7,7 +7,7 @@ const resource = 'schedules';
 router.getAsync(`/`, ScheduleController.getSchedules);
 router.getAsync(`/:scheduleId`, ScheduleController.getScheduleById);
 
-module.exports = {
+export {
   resource,
   router,
 };

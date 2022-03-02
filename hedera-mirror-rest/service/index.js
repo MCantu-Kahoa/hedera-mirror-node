@@ -18,12 +18,16 @@
  * ‍
  */
 
-'use strict';
+import * as ContractService from './contractService.js';
+import * as NftService from './nftService.js';
+import * as RecordFileService from './recordFileService.js';
+import * as TokenService from './tokenService.js';
+import * as TransactionService from './transactionService.js';
 
-module.exports = {
-  ContractService: require('./contractService'),
-  NftService: require('./nftService'),
-  RecordFileService: require('./recordFileService'),
-  TokenService: require('./tokenService'),
-  TransactionService: require('./transactionService'),
+export {
+  ContractService,
+  NftService,
+  RecordFileService,
+  TokenService,
+  TransactionService,
 };

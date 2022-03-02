@@ -20,9 +20,9 @@
 
 'use strict';
 
-const ContractLogResultsViewModel = require('./contractResultLogViewModel');
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
+import ContractLogResultsViewModel  from './contractResultLogViewModel.js';
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
 
 /**
  * Contract log view model
@@ -42,4 +42,4 @@ class ContractLogViewModel extends ContractLogResultsViewModel {
   }
 }
 
-module.exports = ContractLogViewModel;
+export default {ContractLogViewModel};

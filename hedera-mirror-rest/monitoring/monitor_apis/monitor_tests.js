@@ -20,17 +20,23 @@
 
 'use strict';
 
-const {getServerCurrentResults} = require('./common');
-const config = require('./config');
-const utils = require('./utils');
+import { getServerCurrentResults } from './common.js';
+import {getConfig as config} from './config.js';
+import utils from './utils.js';
+import * as accountTests from './account_tests';
+import * as balanceTests from './balance_tests';
+import * as transactionTest from './transaction_tests';
+import * as stateProofTest from './stateproof_tests';
+import * as topicMessageTest from './topicmessage_tests';
+import * as tokenTest from './token_tests';
 
 const allTestModules = [
-  require('./account_tests'),
-  require('./balance_tests'),
-  require('./transaction_tests'),
-  require('./stateproof_tests'),
-  require('./topicmessage_tests'),
-  require('./token_tests'),
+  accountTests,
+  balanceTests,
+  transactionTest,
+  stateProofTest,
+  topicMessageTest,
+  tokenTest,
 ];
 
 const counters = {};
@@ -47,11 +53,11 @@ const runTests = (server) => {
   const counter = server.name in counters ? counters[server.name] : 0;
   const skippedResource = [];
   const enabledTestModules = allTestModules.filter((testModule) => {
-    const {enabled} = config[testModule.resource];
+    const { enabled } = config()[testModule.resource];
     return enabled == null || enabled;
   });
   const testModules = enabledTestModules.filter((testModule) => {
-    const {intervalMultiplier} = config[testModule.resource];
+    const { intervalMultiplier } = config()[testModule.resource];
     if (counter % intervalMultiplier === 0) {
       return true;
     }
@@ -83,6 +89,6 @@ const runTests = (server) => {
   });
 };
 
-module.exports = {
+export {
   runTests,
 };

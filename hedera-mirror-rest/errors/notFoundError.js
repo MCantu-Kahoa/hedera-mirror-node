@@ -29,6 +29,6 @@ class NotFoundError extends Error {
   }
 }
 
-module.exports = {
+export {
   NotFoundError,
 };

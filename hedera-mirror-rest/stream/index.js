@@ -20,10 +20,10 @@
 
 'use strict';
 
-const CompositeRecordFile = require('./compositeRecordFile');
-const SignatureFile = require('./signatureFile');
+import CompositeRecordFile from './compositeRecordFile.js';
+import SignatureFile from './signatureFile.js';
 
-module.exports = {
+export {
   CompositeRecordFile,
   SignatureFile,
 };

@@ -44,6 +44,6 @@ class DbError extends Error {
   }
 }
 
-module.exports = {
+export {
   DbError,
 };

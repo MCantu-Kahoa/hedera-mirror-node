@@ -22,7 +22,7 @@
 
 const AbortController = require('abort-controller');
 const httpErrors = require('http-errors');
-const _ = require('lodash');
+import _ from 'lodash';
 const log4js = require('log4js');
 const fetch = require('node-fetch');
 const math = require('mathjs');
@@ -440,7 +440,7 @@ const accountIdCompare = (first, second) => {
   return 0;
 };
 
-module.exports = {
+export {
   accountIdCompare,
   DEFAULT_LIMIT,
   getUrl,

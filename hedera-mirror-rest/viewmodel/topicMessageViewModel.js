@@ -20,13 +20,13 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
-const TransactionId = require('../model/index');
-const {TransactionID} = require('@hashgraph/proto');
-const TransactionIdViewModel = require('./transactionIdViewModel');
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
+import {TransactionId} from '../model/index.js';
+import {TransactionID} from '@hashgraph/proto';
+import TransactionIdViewModel from './transactionIdViewModel.js';
 
 /**
  * Topic message view model
@@ -69,4 +69,4 @@ class ChunkInfoViewModel {
   }
 }
 
-module.exports = TopicMessageViewModel;
+export default {TopicMessageViewModel};

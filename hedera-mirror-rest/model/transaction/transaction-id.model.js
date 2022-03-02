@@ -29,4 +29,4 @@ class TransactionId {
   }
 }
 
-module.exports = TransactionId;
+export default {TransactionId};

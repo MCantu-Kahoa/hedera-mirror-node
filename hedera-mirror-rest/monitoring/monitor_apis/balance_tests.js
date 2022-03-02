@@ -20,10 +20,10 @@
 
 'use strict';
 
-const _ = require('lodash');
-const math = require('mathjs');
-const config = require('./config');
-const {
+import _ from 'lodash';
+import * as math from 'mathjs';
+import {getConfig as config} from './config.js';
+import {
   checkAPIResponseError,
   checkRespObjDefined,
   checkRespArrayLength,
@@ -35,11 +35,11 @@ const {
   getUrl,
   testRunner,
   CheckRunner,
-} = require('./utils');
+} from './utils.js';
 
 const balancesPath = '/balances';
 const resource = 'balance';
-const resourceLimit = config[resource].limit || DEFAULT_LIMIT;
+const resourceLimit = config()[resource].limit || DEFAULT_LIMIT;
 const jsonRespKey = 'balances';
 const mandatoryParams = ['account', 'balance'];
 
@@ -188,7 +188,7 @@ const runTests = async (server, testResult) => {
   ]);
 };
 
-module.exports = {
+export {
   resource,
   runTests,
 };

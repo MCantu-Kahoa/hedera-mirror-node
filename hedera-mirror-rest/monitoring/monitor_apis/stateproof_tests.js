@@ -20,7 +20,7 @@
 
 'use strict';
 
-const {
+import {
   checkAPIResponseError,
   checkRespObjDefined,
   checkRespArrayLength,
@@ -29,7 +29,7 @@ const {
   getUrl,
   testRunner,
   CheckRunner,
-} = require('./utils');
+} from './utils.js';
 
 const resource = 'stateproof';
 const transactionsPath = '/transactions';
@@ -94,7 +94,7 @@ const runTests = async (server, testResult) => {
   return runTest(checkStateproofForValidTransaction);
 };
 
-module.exports = {
+export {
   resource,
   runTests,
 };

@@ -50,4 +50,4 @@ class TokenTransfer {
   }
 }
 
-module.exports = TokenTransfer;
+export default {TokenTransfer};

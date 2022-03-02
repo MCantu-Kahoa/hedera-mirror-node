@@ -20,7 +20,7 @@
 
 'use strict';
 
-const EntityId = require('../entityId');
+import * as EntityId from '../entityId.js'
 
 /**
  * Nft transfer view model
@@ -34,4 +34,4 @@ class NftTransferViewModel {
   }
 }
 
-module.exports = NftTransferViewModel;
+export default {NftTransferViewModel};

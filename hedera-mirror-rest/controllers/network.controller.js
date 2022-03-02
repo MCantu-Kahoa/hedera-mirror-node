@@ -20,14 +20,14 @@
 
 'use strict';
 
-const config = require('../config');
-const constants = require('../utils/constants');
-const entityId = require('../entityId');
-const {NotFoundError} = require('../errors/notFoundError');
-const utils = require('../utils/utils');
+import {getConfig} from '../config.js';
+import * as constants from '../utils/constants.js'
+import * as entityId from '../entityId.js'
+import {NotFoundError} from '../errors/notFoundError.js';
+import * as utils from '../utils/utils.js'
 
 const totalSupply = 5000000000000000000n;
-const unreleasedSupplyAccounts = config.network.unreleasedSupplyAccounts.map((a) => entityId.parse(a).getEncodedId());
+const unreleasedSupplyAccounts = getConfig().network.unreleasedSupplyAccounts.map((a) => entityId.parse(a).getEncodedId());
 
 const formatResponse = (result) => {
   const {rows} = result;
@@ -81,6 +81,6 @@ const getSupply = async (req, res) => {
   });
 };
 
-module.exports = {
+export {
   getSupply,
 };

@@ -20,8 +20,8 @@
 
 'use strict';
 
-const {httpStatusCodes} = require('../utils/constants');
-const constants = require('../utils/constants');
+import {httpStatusCodes} from '../utils/constants.js';
+import * as constants from '../utils/constants.js'
 
 const defaultStatusCode = httpStatusCodes.INTERNAL_ERROR;
 
@@ -76,6 +76,6 @@ const errorMessageFormat = (errorMessages) => {
   };
 };
 
-module.exports = {
+export {
   handleError,
 };

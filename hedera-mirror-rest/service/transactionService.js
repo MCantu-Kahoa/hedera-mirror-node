@@ -20,10 +20,10 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const BaseService = require('./baseService');
-const {Transaction} = require('../model');
+import {BaseService} from './baseService.js';
+import {Transaction} from '../model/index.js';
 
 /**
  * Transaction retrieval business logic
@@ -103,4 +103,4 @@ class TransactionService extends BaseService {
   }
 }
 
-module.exports = new TransactionService();
+export default new TransactionService();

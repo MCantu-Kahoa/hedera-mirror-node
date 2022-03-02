@@ -21,19 +21,18 @@
 'use strict';
 
 // external libraries
-const crypto = require('crypto');
+import crypto from 'crypto';
 
-const {BYTE_SIZE, INT_SIZE} = require('./constants');
-const HashObject = require('./hashObject');
-const RecordFile = require('./recordFile');
-const RecordStreamObject = require('./recordStreamObject');
-const {readLengthAndBytes} = require('./utils');
+import {BYTE_SIZE, INT_SIZE} from './constants.js';
+import HashObject from './hashObject.js';
+import RecordFile from './recordFile.js';
+import RecordStreamObject from './recordStreamObject.js';
+import {readLengthAndBytes} from './utils.js';
 
 const {MAX_TRANSACTION_LENGTH, MAX_RECORD_LENGTH} = RecordStreamObject;
-const {SHA_384} = HashObject;
 
 // version, hapiVersion, previous hash marker, SHA-384 hash
-const PRE_V5_HEADER_LENGTH = INT_SIZE + INT_SIZE + BYTE_SIZE + SHA_384.length;
+const PRE_V5_HEADER_LENGTH = INT_SIZE + INT_SIZE + BYTE_SIZE + HashObject.SHA_384.length;
 
 class FullRecordFile extends RecordFile {
   /**
@@ -96,4 +95,4 @@ class FullRecordFile extends RecordFile {
   }
 }
 
-module.exports = FullRecordFile;
+export default FullRecordFile;

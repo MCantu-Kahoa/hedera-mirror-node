@@ -20,9 +20,9 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const {Nft} = require('../model');
+import {Nft} from '../model/index.js';
 
 /**
  * Nft business model
@@ -36,4 +36,4 @@ class NftService {
   }
 }
 
-module.exports = new NftService();
+export default new NftService();

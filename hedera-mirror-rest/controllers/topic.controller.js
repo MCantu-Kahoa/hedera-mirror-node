@@ -20,19 +20,15 @@
 
 'use strict';
 
-const _ = require('lodash');
-const {
-  response: {
-    limit: {default: defaultLimit},
-  },
-} = require('../config');
-const constants = require('../utils/constants');
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
-const {NotFoundError} = require('../errors/notFoundError');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
-const {TopicMessage} = require('../model');
-const {TopicMessageViewModel} = require('../viewmodel');
+import _ from 'lodash';
+import * as constants from '../utils/constants.js'
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
+import { getConfig } from '../config.js';
+import {NotFoundError} from '../errors/notFoundError.js';
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
+import {TopicMessage} from '../model/index.js';
+import {TopicMessageViewModel} from '../viewmodel/index.js';
 
 const columnMap = {
   sequencenumber: TopicMessage.SEQUENCE_NUMBER,
@@ -171,7 +167,7 @@ const extractSqlFromTopicMessagesRequest = (topicId, filters) => {
   const pgSqlParams = [topicId.getEncodedId()];
 
   // add filters
-  let limit = defaultLimit;
+  let limit = getConfig().response.limit.default;
   let order = constants.orderFilterValues.ASC;
   for (const filter of filters) {
     if (filter.key === constants.filterKeys.LIMIT) {
@@ -237,7 +233,7 @@ const getMessages = async (pgSqlQuery, pgSqlParams, preQueryHint) => {
   return rows.map((row) => new TopicMessage(row));
 };
 
-module.exports = {
+export {
   extractSqlFromTopicMessagesRequest,
   getMessageByConsensusTimestamp,
   getMessageByTopicAndSequenceRequest,

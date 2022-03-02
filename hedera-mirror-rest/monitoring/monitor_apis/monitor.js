@@ -20,9 +20,9 @@
 
 'use strict';
 
-const common = require('./common.js');
-const monitorTests = require('./monitor_tests.js');
-const utils = require('./utils.js');
+import common from './common.js';
+import monitorTests from './monitor_tests.js';
+import utils from './utils.js';
 
 const retryCountMax = 3; // # of times a single process can retry
 
@@ -89,6 +89,6 @@ const runEverything = async (servers) => {
   }
 };
 
-module.exports = {
+export {
   runEverything,
 };

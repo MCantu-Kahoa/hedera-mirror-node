@@ -18,29 +18,50 @@
  * ‍
  */
 
-'use strict';
+import AssessedCustomFee from './fee/assessed-custom-fee.model.js';
+import Contract from './contract/contract.model.js';
+import ContractLog from './contract/contract-log.model.js';
+import ContractResult from './contract/contract-result.model.js';
+import ContractStateChange from './contract/contract-state-change.model.js';
+import CryptoTransfer from './nft/crypto-transfer.model.js';
+import CustomFee from './fee/custom-fee.model.js';
+import Entity from './entity.model.js';
+import FileData from './file/file-data.model.js';
+import Nft from './nft/nft.model.js';
+import NftTransfer from './nft/nft-transfer.model.js';
+import RecordFile from './file/record-file.model.js';
+import SignatureType from './signature-type.model.js';
+import Token from './token/token.model.js';
+import TokenFreezeStatus from './token/token-freeze-status.model.js';
+import TokenKycStatus from './token/token-kyc-status.model.js';
+import TokenTransfer from './token/token-transfer.model.js';
+import TopicMessage from './topic/topic-message.model.js';
+import Transaction from './transaction/transaction.model.js';
+import TransactionId from './transaction/transaction-id.model.js';
+import TransactionResult from './transaction/transaction-result.model.js';
+import TransactionType from './transaction/transaction-type.model.js';
 
-module.exports = {
-  AssessedCustomFee: require('./fee/assessed-custom-fee.model.js'),
-  Contract: require('./contract/contract.model'),
-  ContractLog: require('./contract/contract-log.model'),
-  ContractResult: require('./contract/contract-result.model'),
-  ContractStateChange: require('./contract/contract-state-change.model'),
-  CryptoTransfer: require('./nft/crypto-transfer.model'),
-  CustomFee: require('./fee/custom-fee.model'),
-  Entity: require('./entity.model'),
-  FileData: require('./file/file-data.model'),
-  Nft: require('./nft/nft.model'),
-  NftTransfer: require('./nft/nft-transfer.model'),
-  RecordFile: require('./file/record-file.model'),
-  SignatureType: require('./signature-type.model'),
-  Token: require('./token/token.model'),
-  TokenFreezeStatus: require('./token/token-freeze-status.model'),
-  TokenKycStatus: require('./token/token-kyc-status.model'),
-  TokenTransfer: require('./token/token-transfer.model'),
-  TopicMessage: require('./topic/topic-message.model'),
-  Transaction: require('./transaction/transaction.model'),
-  TransactionId: require('./transaction/transaction-id.model'),
-  TransactionResult: require('./transaction/transaction-result.model'),
-  TransactionType: require('./transaction/transaction-type.model'),
+export {
+  AssessedCustomFee,
+  Contract,
+  ContractLog,
+  ContractResult,
+  ContractStateChange,
+  CryptoTransfer,
+  CustomFee,
+  Entity,
+  FileData,
+  Nft,
+  NftTransfer,
+  RecordFile,
+  SignatureType,
+  Token,
+  TokenFreezeStatus,
+  TokenKycStatus,
+  TokenTransfer,
+  TopicMessage,
+  Transaction,
+  TransactionId,
+  TransactionResult,
+  TransactionType,
 };

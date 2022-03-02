@@ -20,7 +20,7 @@
 
 'use strict';
 
-const constants = require('../../utils/constants');
+import * as constants from '../../utils/constants.js';
 
 class CustomFee {
   /**
@@ -70,4 +70,4 @@ class CustomFee {
   }
 }
 
-module.exports = CustomFee;
+export default {CustomFee};

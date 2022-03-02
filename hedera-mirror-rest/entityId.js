@@ -18,17 +18,16 @@
  * ‍
  */
 
-'use strict';
+import _ from 'lodash';
+import mem from 'mem'
+import quickLru from 'quick-lru';
 
-const _ = require('lodash');
-const mem = require('mem');
-const quickLru = require('quick-lru');
 
-const {
-  cache: {entityId: entityIdCacheConfig},
-  shard: systemShard,
-} = require('./config');
-const {InvalidArgumentError} = require('./errors/invalidArgumentError');
+import {
+  getConfig
+} from './config.js';
+
+import {InvalidArgumentError} from './errors/invalidArgumentError.js';
 
 // format: |0|15-bit shard|16-bit realm|32-bit num|
 const numBits = 32n;
@@ -179,7 +178,7 @@ const parseFromEvmAddress = (address) => {
 const parseFromString = (id) => {
   const parts = id.split('.');
   if (parts.length < 3) {
-    parts.unshift(systemShard);
+    parts.unshift(getConfig().shard);
   }
 
   return parts.map((part) => BigInt(part));
@@ -187,10 +186,10 @@ const parseFromString = (id) => {
 
 const entityIdCacheOptions = {
   cache: new quickLru({
-    maxSize: entityIdCacheConfig.maxSize,
+    maxSize: getConfig().cache.entityId.maxSize,
   }),
   cacheKey: (args) => args[0],
-  maxAge: entityIdCacheConfig.maxAge * 1000, // in millis
+  maxAge: getConfig().cache.entityId.maxAge * 1000, // in millis
 };
 
 const parseMemoized = mem(
@@ -249,7 +248,7 @@ const parse = (id, ...rest) => {
   return checkNullId(id, isNullable) || parseMemoized(`${id}`, error);
 };
 
-module.exports = {
+export {
   isValidEntityId,
   isValidEvmAddress,
   of,

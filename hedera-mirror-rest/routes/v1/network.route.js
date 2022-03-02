@@ -1,12 +1,12 @@
-const {Router} = require('@awaitjs/express');
-const {NetworkController} = require('../../controllers');
+import {Router} from '@awaitjs/express';
+import {NetworkController} from '../../controllers/index.js';
 
 const router = Router();
 const resource = 'network';
 
 router.getAsync(`/supply`, NetworkController.getSupply);
 
-module.exports = {
+export {
   resource,
   router,
 };

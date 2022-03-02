@@ -20,11 +20,11 @@
 
 'use strict';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const compression = require('compression');
-const log4js = require('log4js');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import compression from 'compression';
+import log4js from 'log4js';
 
 // Logger
 const logger = log4js.getLogger();
@@ -47,13 +47,13 @@ log4js.configure({
 });
 global.logger = log4js.getLogger();
 
-const config = require('./config');
-const common = require('./common');
-const monitor = require('./monitor');
+import {getConfig as config} from './config.js';
+import common from './common.js';
+import monitor from './monitor.js';
 
 const app = express();
 
-const port = process.env.PORT || config.port || 3000;
+const port = process.env.PORT || config().port || 3000;
 if (port === undefined || isNaN(Number(port))) {
   logger.error('Please specify a valid port');
   process.exit(1);
@@ -104,13 +104,13 @@ if (process.env.NODE_ENV !== 'test') {
 
 const runMonitorTests = () => {
   logger.info('Running tests');
-  monitor.runEverything(config.servers);
+  monitor.runEverything(config().servers);
 };
 
 runMonitorTests();
 setInterval(() => {
   // Run all the tests periodically
   runMonitorTests();
-}, config.interval * 1000);
+}, config().interval * 1000);
 
-module.exports = app;
+export default app;

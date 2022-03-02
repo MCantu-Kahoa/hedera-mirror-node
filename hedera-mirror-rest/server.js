@@ -21,27 +21,27 @@
 'use strict';
 
 // external libraries
-const express = require('express');
-const {createTerminus} = require('@godaddy/terminus');
-const {addAsync} = require('@awaitjs/express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const httpContext = require('express-http-context');
-const log4js = require('log4js');
-const compression = require('compression');
+import express from 'express';
+import {createTerminus} from '@godaddy/terminus';
+import {addAsync} from '@awaitjs/express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import httpContext from 'express-http-context';
+import log4js from 'log4js';
+import compression from 'compression';
+import fs from 'fs';
 
 // local files
-const {router: v1Router} = require('./routes/v1');
-const config = require('./config');
-const constants = require('./utils/constants');
-const health = require('./health');
-const {getPoolClass, isTestEnv, loadPgRange} = require('./utils/utils');
-const {handleError} = require('./middleware/httpErrorHandler');
-const {metricsHandler, recordIpAndEndpoint} = require('./middleware/metricsHandler');
-const {serveSwaggerDocs, openApiValidator} = require('./middleware/openapiHandler');
-const {responseHandler} = require('./middleware/responseHandler');
-const {requestLogger, requestQueryParser} = require('./middleware/requestHandler');
-const fs = require('fs');
+import {router as v1Router} from './routes/v1/index.js';
+import {getConfig as config }from './config.js';
+import * as constants from './utils/constants.js';
+import * as health from './health.js';
+import {getPoolClass, isTestEnv, loadPgRange} from './utils/utils.js';
+import {handleError} from './middleware/httpErrorHandler.js';
+import {metricsHandler, recordIpAndEndpoint} from './middleware/metricsHandler.js';
+import {serveSwaggerDocs, openApiValidator} from './middleware/openapiHandler.js';
+import {responseHandler} from './middleware/responseHandler.js';
+import {requestLogger, requestQueryParser} from './middleware/requestHandler.js';
 
 // Logger
 const logger = log4js.getLogger();
@@ -61,14 +61,14 @@ log4js.configure({
   categories: {
     default: {
       appenders: ['console'],
-      level: config.log.level,
+      level: config().log.level,
     },
   },
 });
 global.logger = log4js.getLogger();
 
 // use a dummy port for jest unit tests
-const port = isTestEnv() ? 3000 : config.port;
+const port = isTestEnv() ? 3000 : config().port;
 if (port === undefined || Number.isNaN(Number(port))) {
   logger.error('Server started with unknown port');
   process.exit(1);
@@ -76,21 +76,21 @@ if (port === undefined || Number.isNaN(Number(port))) {
 
 // Postgres pool
 const poolConfig = {
-  user: config.db.username,
-  host: config.db.host,
-  database: config.db.name,
-  password: config.db.password,
-  port: config.db.port,
-  connectionTimeoutMillis: config.db.pool.connectionTimeout,
-  max: config.db.pool.maxConnections,
-  statement_timeout: config.db.pool.statementTimeout,
+  user: config().db.username,
+  host: config().db.host,
+  database: config().db.name,
+  password: config().db.password,
+  port: config().db.port,
+  connectionTimeoutMillis: config().db.pool.connectionTimeout,
+  max: config().db.pool.maxConnections,
+  statement_timeout: config().db.pool.statementTimeout,
 };
 
-if (config.db.tls.enabled) {
+if (config().db.tls.enabled) {
   poolConfig.ssl = {
-    ca: fs.readFileSync(config.db.tls.ca).toString(),
-    cert: fs.readFileSync(config.db.tls.cert).toString(),
-    key: fs.readFileSync(config.db.tls.key).toString(),
+    ca: fs.readFileSync(config().db.tls.ca).toString(),
+    cert: fs.readFileSync(config().db.tls.cert).toString(),
+    key: fs.readFileSync(config().db.tls.key).toString(),
     rejectUnauthorized: false,
   };
 }
@@ -123,7 +123,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-if (config.response.compression) {
+if (config().response.compression) {
   logger.info('Response compression is enabled');
   app.use(compression());
 }
@@ -133,14 +133,16 @@ app.use(httpContext.middleware);
 app.useAsync(requestLogger);
 
 // metrics middleware
-if (config.metrics.enabled) {
+if (config().metrics.enabled) {
   app.use(metricsHandler());
 }
 
+
+// Application Routes
 app.use(`${apiPrefix}`, v1Router);
 
 // record ip metrics if enabled
-if (config.metrics.ipMetrics) {
+if (config().metrics.ipMetrics) {
   app.useAsync(recordIpAndEndpoint);
 }
 
@@ -165,4 +167,4 @@ if (!isTestEnv()) {
   });
 }
 
-module.exports = app;
+export default app;

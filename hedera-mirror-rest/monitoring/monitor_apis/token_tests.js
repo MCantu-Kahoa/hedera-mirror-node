@@ -20,9 +20,9 @@
 
 'use strict';
 
-const math = require('mathjs');
-const config = require('./config');
-const {
+import * as math from 'mathjs';
+import {getConfig as config} from './config.js';
+import {
   accountIdCompare,
   checkAPIResponseError,
   checkElementsOrder,
@@ -36,12 +36,12 @@ const {
   getUrl,
   testRunner,
   CheckRunner,
-} = require('./utils');
+} from './utils.js';
 
 const tokensPath = '/tokens';
 const resource = 'token';
-const tokensLimit = config[resource].limit || DEFAULT_LIMIT;
-const tokenIdFromConfig = config[resource].tokenId;
+const tokensLimit = config()[resource].limit || DEFAULT_LIMIT;
+const tokenIdFromConfig = config()[resource].tokenId;
 const tokensJsonRespKey = 'tokens';
 const tokenMandatoryParams = ['token_id', 'symbol', 'admin_key'];
 
@@ -222,7 +222,7 @@ const getTokenInfoCheck = async (server) => {
   };
 };
 
-const {tokenBalancesLimit} = config[resource];
+const {tokenBalancesLimit} = config()[resource];
 const tokenBalancesJsonRespKey = 'balances';
 const tokenBalanceMandatoryParams = ['account', 'balance'];
 const tokenBalancesPath = (tokenId) => `${tokensPath}/${tokenId}/balances`;
@@ -458,7 +458,7 @@ const runTests = async (server, testResult) => {
   ]);
 };
 
-module.exports = {
+export {
   resource,
   runTests,
 };

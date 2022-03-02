@@ -21,14 +21,14 @@
 'use strict';
 
 // external libraries
-const _ = require('lodash');
-const log4js = require('log4js');
-const path = require('path');
-const AddressBook = require('./addressBook');
-const {CompositeRecordFile, SignatureFile} = require('../stream');
-const TransactionId = require('../transactionId');
-const {performStateProof} = require('./transactionValidator');
-const {makeStateProofDir, storeFile} = require('./utils');
+import _ from 'lodash';
+import log4js from'log4js';
+import path from'path';
+import AddressBook from'./addressBook.js';
+import {CompositeRecordFile, SignatureFile} from'../stream/index.js';
+import TransactionId from'../transactionId.js';
+import {performStateProof} from'./transactionValidator.js';
+import {makeStateProofDir, storeFile} from'./utils';
 
 const logger = log4js.getLogger();
 
@@ -125,4 +125,4 @@ class StateProofHandler {
   }
 }
 
-module.exports = StateProofHandler;
+export default StateProofHandler;

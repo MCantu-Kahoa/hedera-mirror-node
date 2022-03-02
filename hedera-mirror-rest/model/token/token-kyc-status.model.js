@@ -20,7 +20,7 @@
 
 'use strict';
 
-const {InvalidArgumentError} = require('../../errors/invalidArgumentError');
+import {InvalidArgumentError} from '../../errors/invalidArgumentError.js';
 
 class TokenKycStatus {
   static STATUSES = ['NOT_APPLICABLE', 'GRANTED', 'REVOKED'];
@@ -45,4 +45,4 @@ class TokenKycStatus {
   }
 }
 
-module.exports = TokenKycStatus;
+export default {TokenKycStatus};

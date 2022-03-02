@@ -17,15 +17,24 @@
  * limitations under the License.
  * ‍
  */
+import * as ContractController  from  './contractController.js';
+import * as TokenController  from  './token.controller.js';
+import * as TopicController  from  './topic.controller.js';
+import * as TransactionController  from  './transaction.controller.js';
+import * as AccountController  from  './account.controller.js';
+import * as BalanceController  from  './balance.controller.js';
+import * as NetworkController  from  './network.controller.js';
+import * as ScheduleController  from  './schedule.controller.js';
+import * as StateproofController  from  './stateproof.controller.js';
 
-module.exports = {
-  ContractController: require('./contractController'),
-  TokenController: require('./token.controller'),
-  TopicController: require('./topic.controller'),
-  TransactionController: require('./transaction.controller'),
-  AccountController: require('./account.controller'),
-  BalanceController: require('./balance.controller'),
-  NetworkController: require('./network.controller'),
-  ScheduleController: require('./schedule.controller'),
-  StateproofController: require('./stateproof.controller'),
+export {
+  ContractController,
+  TokenController,
+  TopicController,
+  TransactionController,
+  AccountController,
+  BalanceController,
+  NetworkController,
+  ScheduleController,
+  StateproofController,
 };

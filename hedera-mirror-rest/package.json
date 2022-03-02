@@ -4,6 +4,7 @@
   "description": "Hedera Mirror Node REST API",
   "main": "server.js",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=16.13.0 < 17"
   },

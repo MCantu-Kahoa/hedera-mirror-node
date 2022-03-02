@@ -20,32 +20,30 @@
 
 'use strict';
 
-const _ = require('lodash');
-const {Range} = require('pg-range');
+import _ from 'lodash';
+import {Range} from 'pg-range';
 
-const {
-  response: {
-    limit: {default: defaultLimit},
-  },
-} = require('../config');
-const constants = require('../utils/constants');
-const EntityId = require('../entityId');
+import {
+  getConfig
+} from '../config.js';
+import * as constants from '../utils/constants.js'
+import * as EntityId from '../entityId.js'
 
 // errors
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
-const {NotFoundError} = require('../errors/notFoundError');
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
+import {NotFoundError} from '../errors/notFoundError.js';
 
-const {Contract, ContractLog, ContractResult, FileData, TransactionResult} = require('../model');
-const {ContractService, RecordFileService, TransactionService} = require('../service');
-const TransactionId = require('../utils/transactionId');
-const utils = require('../utils/utils');
-const {
+import {Contract, ContractLog, ContractResult, FileData, TransactionResult} from '../model/index.js';
+import {ContractService, RecordFileService, TransactionService} from '../service/index.js';
+import TransactionId from '../utils/transactionId.js';
+import * as utils from '../utils/utils.js'
+import{
   ContractViewModel,
   ContractLogViewModel,
   ContractResultViewModel,
   ContractResultDetailsViewModel,
-} = require('../viewmodel');
-const {httpStatusCodes} = require('../utils/constants');
+} from '../viewmodel/index.js';
+import {httpStatusCodes} from '../utils/constants.js';
 
 const contractSelectFields = [
   Contract.AUTO_RENEW_PERIOD,
@@ -99,11 +97,12 @@ const fileDataQuery = `select
  * @return {{limit: number, params: number[], filterQuery: string, order: string}}
  */
 const extractSqlFromContractFilters = (filters) => {
+  const {limit} = getConfig();
   const filterQuery = {
     filterQuery: '',
-    params: [defaultLimit],
+    params: [limit.default],
     order: constants.orderFilterValues.DESC,
-    limit: defaultLimit,
+    limit: limit.default,
     limitQuery: 'limit $1',
   };
 
@@ -802,29 +801,24 @@ const checkTimestampsForTopics = (filters) => {
   }
 };
 
-module.exports = {
+export {
   getContractById,
   getContracts,
   getContractLogs,
   getContractResultsById,
   getContractResultsByTimestamp,
   getContractResultsByTransactionId,
-};
-
-if (utils.isTestEnv()) {
-  Object.assign(module.exports, {
-    contractResultsByIdParamSupportMap,
-    checkTimestampsForTopics,
-    extractContractLogsByIdQuery,
-    extractContractResultsByIdQuery,
-    extractSqlFromContractFilters,
-    extractTimestampConditionsFromContractFilters,
-    fileDataQuery,
-    formatContractRow,
-    getContractByIdQuery,
-    getContractsQuery,
-    getLastNonceParamValue,
-    validateContractIdAndConsensusTimestampParam,
-    validateContractIdParam,
-  });
+  contractResultsByIdParamSupportMap,
+  checkTimestampsForTopics,
+  extractContractLogsByIdQuery,
+  extractContractResultsByIdQuery,
+  extractSqlFromContractFilters,
+  extractTimestampConditionsFromContractFilters,
+  fileDataQuery,
+  formatContractRow,
+  getContractByIdQuery,
+  getContractsQuery,
+  getLastNonceParamValue,
+  validateContractIdAndConsensusTimestampParam,
+  validateContractIdParam,
 }

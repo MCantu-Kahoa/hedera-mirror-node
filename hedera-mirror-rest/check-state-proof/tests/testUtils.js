@@ -20,9 +20,9 @@
 
 'use strict';
 
-const glob = require('glob');
-const path = require('path');
-const {readJSONFile} = require('../utils');
+import glob from 'glob';
+import path from 'path';
+import {readJSONFile} from '../utils.js';
 
 const loadStateProofSamples = () => {
   const getVersionFromPath = (filepath) => {
@@ -30,7 +30,7 @@ const loadStateProofSamples = () => {
     return parseInt(segments[segments.length - 1][1]);
   };
 
-  const jsonFiles = glob.sync(`${__dirname}/../sample/v*/*.json`);
+  const jsonFiles = glob.sync(`${ import.meta.url}/../sample/v*/*.json`);
   return jsonFiles.map((jsonFile) => {
     return {
       data: readJSONFile(jsonFile),
@@ -40,6 +40,6 @@ const loadStateProofSamples = () => {
   });
 };
 
-module.exports = {
+export {
   loadStateProofSamples,
 };

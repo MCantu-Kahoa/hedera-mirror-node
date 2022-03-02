@@ -20,13 +20,17 @@
 
 'use strict';
 
-const extend = require('extend');
-const fs = require('fs');
-const yaml = require('js-yaml');
-const parseDuration = require('parse-duration');
-const path = require('path');
-const {InvalidConfigError} = require('./errors/invalidConfigError');
-const {cloudProviders, networks, defaultBucketNames} = require('./utils/constants');
+import extend from 'extend';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import parseDuration from 'parse-duration';
+import path from 'path';
+import {InvalidConfigError} from './errors/invalidConfigError.js';
+import {cloudProviders, networks, defaultBucketNames} from './utils/constants.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const defaultConfigName = 'application';
 const config = {};
@@ -168,8 +172,8 @@ const parseMaxTimestampRange = () => {
 if (!loaded) {
   const configName = process.env.CONFIG_NAME || defaultConfigName;
   // always load the default configuration
-  load(path.join(__dirname, 'config'), defaultConfigName);
-  load(__dirname, configName);
+  load(path.join( __dirname, 'config'), defaultConfigName);
+  load( __dirname, configName);
   load(process.env.CONFIG_PATH, configName);
   loadEnvironment();
   parseDbPoolConfig();
@@ -178,4 +182,5 @@ if (!loaded) {
   loaded = true;
 }
 
-module.exports = getConfig();
+export  {getConfig};
+// export getConfig();

@@ -1,7 +1,7 @@
-const {Router} = require('@awaitjs/express');
-const {TransactionController, StateproofController} = require('../../controllers');
-const config = require('../../config');
-const {isTestEnv} = require('../../utils/utils');
+import {Router} from '@awaitjs/express';
+import {TransactionController, StateproofController} from '../../controllers/index.js';
+import {getConfig} from '../../config.js';
+import {isTestEnv} from '../../utils/utils.js';
 
 const router = Router();
 const resource = 'transactions';
@@ -10,14 +10,14 @@ router.getAsync(`/`, TransactionController.getTransactions);
 router.getAsync(`/:transactionId`, TransactionController.getTransactionsById);
 
 // stateproof route
-if (config.stateproof.enabled || isTestEnv()) {
+if (getConfig().stateproof.enabled || isTestEnv()) {
   // logger.info('stateproof REST API is enabled, install handler');
   router.getAsync(`/:transactionId/stateproof`, StateproofController.getStateProofForTransaction);
 } else {
   // logger.info('stateproof REST API is disabled');
 }
 
-module.exports = {
+export {
   resource,
   router,
 };

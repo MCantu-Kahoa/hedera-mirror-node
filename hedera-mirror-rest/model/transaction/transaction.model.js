@@ -20,7 +20,7 @@
 
 'use strict';
 
-const constants = require('../../utils/constants');
+import * as constants from '../../utils/constants.js';
 
 class Transaction {
   static tableAlias = 't';
@@ -80,4 +80,4 @@ class Transaction {
   }
 }
 
-module.exports = Transaction;
+export default Transaction;

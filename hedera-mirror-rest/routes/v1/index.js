@@ -18,15 +18,15 @@
  * ‍
  */
 
-const {Router} = require('@awaitjs/express');
-const {router: AccountRouter, resource: AccountResource} = require('./account.route');
-const {router: BalanceRouter, resource: BalanceResource} = require('./balance.route');
-const {router: ContractRouter, resource: ContractResource} = require('./contract.route');
-const {router: NetworkRouter, resource: NetworkResource} = require('./network.route');
-const {router: ScheduleRouter, resource: ScheduleResource} = require('./schedule.route');
-const {router: TokenRouter, resource: TokenResource} = require('./token.route');
-const {router: TopicRouter, resource: TopicResource} = require('./topic.route');
-const {router: TransactionRouter, resource: TransactionResource} = require('./transaction.route');
+import {Router} from '@awaitjs/express';
+import {router as AccountRouter, resource as AccountResource} from './account.route.js';
+import {router as BalanceRouter, resource as BalanceResource} from './balance.route.js';
+import {router as ContractRouter, resource as ContractResource} from './contract.route.js';
+import {router as NetworkRouter, resource as NetworkResource} from './network.route.js';
+import {router as ScheduleRouter, resource as ScheduleResource} from './schedule.route.js';
+import {router as TokenRouter, resource as TokenResource} from './token.route.js';
+import {router as TopicRouter, resource as TopicResource} from './topic.route.js';
+import {router as TransactionRouter, resource as TransactionResource} from './transaction.route.js';
 
 const router = Router();
 
@@ -45,4 +45,4 @@ defaultRoutes.forEach((route) => {
   router.use(route.path, route.router);
 });
 
-module.exports = {router};
+export {router}

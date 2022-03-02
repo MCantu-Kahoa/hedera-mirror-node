@@ -171,7 +171,7 @@ const queryParamOperators = {
   gte: 'gte',
 };
 
-module.exports = {
+export {
   MAX_INT32,
   characterEncoding,
   cloudProviders,

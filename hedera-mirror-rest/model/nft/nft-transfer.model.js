@@ -20,7 +20,7 @@
 
 'use strict';
 
-const constants = require('../../utils/constants');
+import * as constants from '../../utils/constants.js';
 
 class NftTransfer {
   /**
@@ -58,4 +58,4 @@ class NftTransfer {
   }
 }
 
-module.exports = NftTransfer;
+export default NftTransfer;

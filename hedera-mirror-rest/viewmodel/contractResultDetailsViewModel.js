@@ -20,11 +20,11 @@
 
 'use strict';
 
-const ContractLogResultsViewModel = require('./contractResultLogViewModel');
-const ContractResultStateChangeViewModel = require('./contractResultStateChangeViewModel');
-const ContractResultViewModel = require('./contractResultViewModel');
-const {TransactionResult} = require('../model');
-const utils = require('../utils/utils');
+import ContractLogResultsViewModel from './contractResultLogViewModel.js';
+import ContractResultStateChangeViewModel from './contractResultStateChangeViewModel.js';
+import ContractResultViewModel from './contractResultViewModel.js';
+import {TransactionResult} from '../model/index.js';
+import * as utils from '../utils/utils.js'
 
 /**
  * Contract result details view model
@@ -62,4 +62,4 @@ class ContractResultDetailsViewModel extends ContractResultViewModel {
   }
 }
 
-module.exports = ContractResultDetailsViewModel;
+export default {ContractResultDetailsViewModel};

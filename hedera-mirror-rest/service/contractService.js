@@ -20,16 +20,14 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const BaseService = require('./baseService');
-const {ContractLog, ContractResult, ContractStateChange} = require('../model');
-const {
-  response: {
-    limit: {default: defaultLimit},
-  },
-} = require('../config');
-const {orderFilterValues} = require('../utils/constants');
+import {BaseService} from './baseService.js';
+import {ContractLog, ContractResult, ContractStateChange} from '../model/index.js';
+import {
+  getConfig
+} from '../config.js';
+import {orderFilterValues} from '../utils/constants.js';
 
 /**
  * Contract retrieval business logic
@@ -95,7 +93,7 @@ class ContractService extends BaseService {
     whereConditions = [],
     whereParams = [],
     order = orderFilterValues.DESC,
-    limit = defaultLimit
+    limit = getConfig().response.limit.default
   ) {
     const [query, params] = this.getContractResultsByIdAndFiltersQuery(whereConditions, whereParams, order, limit);
     const rows = await super.getRows(query, params, 'getContractResultsByIdAndFilters');
@@ -165,7 +163,7 @@ class ContractService extends BaseService {
     whereParams = [],
     timestampOrder = orderFilterValues.DESC,
     indexOrder = orderFilterValues.DESC,
-    limit = defaultLimit
+    limit = getConfig().response.limit.default
   ) {
     const [query, params] = this.getContractLogsByIdAndFiltersQuery(
       whereConditions,
@@ -211,4 +209,4 @@ class ContractService extends BaseService {
   }
 }
 
-module.exports = new ContractService();
+export default new ContractService();

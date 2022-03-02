@@ -20,7 +20,7 @@
 
 'use strict';
 
-const utils = require('../../utils/utils');
+import * as  utils from '../../utils/utils.js';
 
 const commonFields = [
   'auto_renew_period',
@@ -67,7 +67,7 @@ const getAccountContractUnionQueryWithOrder = (...orderOptions) => {
   `;
 };
 
-module.exports = {
+export {
   getAccountContractUnionQueryWithOrder,
 };
 

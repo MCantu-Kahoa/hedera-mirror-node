@@ -1,5 +1,5 @@
-const {Router} = require('@awaitjs/express');
-const {TokenController} = require('../../controllers');
+import {Router} from '@awaitjs/express';
+import {TokenController} from '../../controllers/index.js';
 
 const router = Router();
 const resource = 'tokens';
@@ -11,7 +11,7 @@ router.getAsync(`/:tokenId/nfts`, TokenController.getNftTokensRequest);
 router.getAsync(`/:tokenId/nfts/:serialNumber`, TokenController.getNftTokenInfoRequest);
 router.getAsync(`/:tokenId/nfts/:serialNumber/transactions`, TokenController.getNftTransferHistoryRequest);
 
-module.exports = {
+export {
   resource,
   router,
 };

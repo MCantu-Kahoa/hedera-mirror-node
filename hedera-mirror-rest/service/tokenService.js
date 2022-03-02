@@ -20,9 +20,9 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const {Token} = require('../model');
+import {Token}  from  '../model/index.js';
 
 /**
  * Token retrieval business logic
@@ -38,4 +38,4 @@ class TokenService {
   }
 }
 
-module.exports = new TokenService();
+export default new TokenService();

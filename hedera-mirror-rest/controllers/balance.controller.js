@@ -20,10 +20,10 @@
 
 'use strict';
 
-const {getAccountContractUnionQueryWithOrder} = require('../model/account/account-contract.model');
-const constants = require('../utils/constants');
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
+import {getAccountContractUnionQueryWithOrder} from '../model/account/account-contract.model.js';
+import * as constants from '../utils/constants.js'
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
 
 const formatBalancesResult = (req, result, limit, order) => {
   const {rows, sqlQuery} = result;
@@ -139,6 +139,6 @@ const getBalances = async (req, res) => {
   logger.debug(`getBalances returning ${result.rows.length} entries`);
 };
 
-module.exports = {
+export {
   getBalances,
 };

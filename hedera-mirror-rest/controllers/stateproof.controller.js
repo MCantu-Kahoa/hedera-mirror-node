@@ -20,17 +20,17 @@
 
 'use strict';
 
-const _ = require('lodash');
-const config = require('../config');
-const constants = require('../utils/constants');
-const EntityId = require('../entityId');
-const s3client = require('../model/s3-client.model');
-const {CompositeRecordFile} = require('../stream');
-const TransactionId = require('../utils/transactionId');
-const utils = require('../utils/utils');
-const {DbError} = require('../errors/dbError');
-const {NotFoundError} = require('../errors/notFoundError');
-const {FileDownloadError} = require('../errors/fileDownloadError');
+import _ from 'lodash';
+import {getConfig} from '../config.js';
+import * as constants from '../utils/constants.js'
+import * as EntityId from '../entityId.js'
+import s3client from '../model/s3-client.model.js';
+import {CompositeRecordFile} from '../stream/index.js';
+import TransactionId from '../utils/transactionId.js';
+import * as utils from '../utils/utils.js'
+import {DbError} from '../errors/dbError.js';
+import {NotFoundError} from '../errors/notFoundError.js';
+import {FileDownloadError} from '../errors/fileDownloadError.js';
 
 /**
  * Get the consensus_timestamp of the transaction. Throws exception if no such successful transaction found or multiple such
@@ -115,7 +115,7 @@ let getAddressBooksAndNodeAccountIdsByConsensusNs = async (consensusNs) => {
        WHERE start_consensus_timestamp <= $1
          AND file_id = 102
        GROUP BY start_consensus_timestamp`;
-  if (config.stateproof.addressBookHistory) {
+  if (getConfig().stateproof.addressBookHistory) {
     sqlQuery += `
       ORDER BY start_consensus_timestamp`;
   } else {
@@ -160,7 +160,7 @@ let getAddressBooksAndNodeAccountIdsByConsensusNs = async (consensusNs) => {
  * @returns {Promise<Array>} Array of file buffers
  */
 let downloadRecordStreamFilesFromObjectStorage = async (...partialFilePaths) => {
-  const {bucketName} = config.stateproof.streams;
+  const {bucketName} = getConfig().stateproof.streams;
   const s3Client = s3client.createS3Client();
 
   const fileObjects = await Promise.all(
@@ -336,7 +336,7 @@ const getStateProofForTransaction = async (req, res) => {
   };
 };
 
-module.exports = {
+export {
   getStateProofForTransaction,
 };
 

@@ -18,19 +18,30 @@
  * ‍
  */
 
-'use strict';
+import AssessedCustomFeeViewModel from './assessedCustomFeeViewModel.js';
+import CustomFeeViewModel from './customFeeViewModel.js';
+import ContractViewModel from './contractViewModel.js';
+import ContractLogViewModel from './contractLogViewModel.js';
+import ContractResultDetailsViewModel from './contractResultDetailsViewModel.js';
+import ContractResultStateChangeViewModel from './contractResultStateChangeViewModel.js';
+import ContractResultViewModel from './contractResultViewModel.js';
+import NftTransactionHistoryViewModel from './nftTransactionHistoryViewModel.js';
+import NftTransferViewModel from './nftTransferViewModel.js';
+import NftViewModel from './nftViewModel.js';
+import TopicMessageViewModel from './topicMessageViewModel.js';
+import TransactionIdViewModel from './transactionIdViewModel.js';
 
-module.exports = {
-  AssessedCustomFeeViewModel: require('./assessedCustomFeeViewModel'),
-  CustomFeeViewModel: require('./customFeeViewModel'),
-  ContractViewModel: require('./contractViewModel'),
-  ContractLogViewModel: require('./contractLogViewModel'),
-  ContractResultDetailsViewModel: require('./contractResultDetailsViewModel'),
-  ContractResultStateChangeViewModel: require('./contractResultStateChangeViewModel'),
-  ContractResultViewModel: require('./contractResultViewModel'),
-  NftTransactionHistoryViewModel: require('./nftTransactionHistoryViewModel'),
-  NftTransferViewModel: require('./nftTransferViewModel'),
-  NftViewModel: require('./nftViewModel'),
-  TopicMessageViewModel: require('./topicMessageViewModel'),
-  TransactionIdViewModel: require('./transactionIdViewModel'),
+export {
+  AssessedCustomFeeViewModel,
+  CustomFeeViewModel,
+  ContractViewModel,
+  ContractLogViewModel,
+  ContractResultDetailsViewModel,
+  ContractResultStateChangeViewModel,
+  ContractResultViewModel,
+  NftTransactionHistoryViewModel,
+  NftTransferViewModel,
+  NftViewModel,
+  TopicMessageViewModel,
+  TransactionIdViewModel
 };

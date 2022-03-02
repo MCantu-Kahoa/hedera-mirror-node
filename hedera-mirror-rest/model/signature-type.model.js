@@ -34,6 +34,6 @@ const getName = (protoId) => {
   return protoToName[protoId] || UNKNOWN;
 };
 
-module.exports = {
+export default {
   getName,
 };

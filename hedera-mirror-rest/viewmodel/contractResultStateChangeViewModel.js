@@ -20,9 +20,10 @@
 
 'use strict';
 
-const EntityId = require('../entityId');
-const constants = require('../utils/constants');
-const utils = require('../utils/utils');
+// import * as EntityId from '../entityId.js'
+import * as EntityId from '../entityId.js'
+import * as constants from '../utils/constants.js'
+import * as utils from '../utils/utils.js'
 
 /**
  * Contract result state change view model
@@ -43,4 +44,4 @@ class ContractResultStateChangeViewModel {
   }
 }
 
-module.exports = ContractResultStateChangeViewModel;
+export default {ContractResultStateChangeViewModel};

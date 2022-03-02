@@ -20,9 +20,9 @@
 
 'use strict';
 
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
-const {TransactionType} = require('../model');
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
+import {TransactionType} from '../model/index.js';
 
 /**
  * Nft transaction history transfer view model
@@ -41,4 +41,4 @@ class NftTransactionHistoryViewModel {
   }
 }
 
-module.exports = NftTransactionHistoryViewModel;
+export default {NftTransactionHistoryViewModel};

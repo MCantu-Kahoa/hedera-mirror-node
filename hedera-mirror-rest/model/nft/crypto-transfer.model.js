@@ -48,4 +48,4 @@ class CryptoTransfer {
   }
 }
 
-module.exports = CryptoTransfer;
+export default {CryptoTransfer};

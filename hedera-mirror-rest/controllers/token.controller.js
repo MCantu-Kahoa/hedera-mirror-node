@@ -20,32 +20,30 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const {
-  response: {
-    limit: {default: defaultLimit},
-  },
-} = require('../config');
-const constants = require('../utils/constants');
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
+import {
+  getConfig
+} from '../config.js';
+import * as constants from '../utils/constants.js'
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
 
 // errors
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
-const {NotFoundError} = require('../errors/notFoundError');
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
+import {NotFoundError} from '../errors/notFoundError.js';
 
 // models
-const {CustomFee, Entity, Nft, NftTransfer, Token, Transaction, TransactionType} = require('../model');
+import {CustomFee, Entity, Nft, NftTransfer, Token, Transaction, TransactionType} from '../model/index.js';
 
 // middleware
-const {httpStatusCodes} = require('../utils/constants');
+import {httpStatusCodes} from '../utils/constants.js';
 
 // services
-const {NftService, TokenService} = require('../service');
+import {NftService, TokenService} from '../service/index.js';
 
 // view models
-const {CustomFeeViewModel, NftViewModel, NftTransactionHistoryViewModel} = require('../viewmodel');
+import {CustomFeeViewModel, NftViewModel, NftTransactionHistoryViewModel} from '../viewmodel/index.js';
 
 // select columns
 const sqlQueryColumns = {
@@ -139,7 +137,7 @@ const tokenIdMatchQuery = 'where token_id = $1';
  */
 const extractSqlFromTokenRequest = (query, params, filters, conditions) => {
   // add filters
-  let limit = defaultLimit;
+  let limit = getConfig().response.limit.default;
   let order = constants.orderFilterValues.ASC;
   conditions = conditions || [];
   for (const filter of filters) {
@@ -520,7 +518,7 @@ const tokenBalancesSelectQuery = ['select', tokenBalancesSelectFields.join(',\n'
  * @return {{query: string, limit: number, params: [], order: 'asc'|'desc'}}
  */
 const extractSqlFromTokenBalancesRequest = (tokenId, query, filters) => {
-  let limit = defaultLimit;
+  let limit = getConfig().response.limit.default;
   let order = constants.orderFilterValues.DESC;
   let joinEntityClause = '';
   const conditions = [`${tokenBalancesSqlQueryColumns.TOKEN_ID} = $1`];
@@ -627,7 +625,7 @@ const getTokenBalances = async (req, res) => {
  * @return {{query: string, limit: number, params: [], order: 'asc'|'desc'}}
  */
 const extractSqlFromNftTokensRequest = (tokenId, query, filters) => {
-  let limit = defaultLimit;
+  let limit = getConfig().response.limit.default;
   let order = constants.orderFilterValues.DESC;
   const conditions = [`${nftQueryColumns.TOKEN_ID} = $1`];
   const params = [tokenId];
@@ -796,7 +794,7 @@ const getTokenInfo = async (query, params) => {
  * @return {{query: string, limit: number, params: [], order: 'asc'|'desc'}}
  */
 const extractSqlFromNftTransferHistoryRequest = (tokenId, serialNumber, filters) => {
-  let limit = defaultLimit;
+  let limit = getConfig().response.limit.default;
   let order = constants.orderFilterValues.DESC;
 
   const params = [tokenId, serialNumber];
@@ -956,7 +954,7 @@ const getNftTransferHistoryRequest = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getNftTokenInfoRequest,
   getNftTokensRequest,
   getNftTransferHistoryRequest,

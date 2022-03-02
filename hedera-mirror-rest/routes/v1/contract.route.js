@@ -18,8 +18,8 @@
  * ‍
  */
 
-const {Router} = require('@awaitjs/express');
-const {ContractController} = require('../../controllers');
+import {Router} from '@awaitjs/express';
+import {ContractController} from '../../controllers/index.js';
 
 const router = Router();
 
@@ -32,7 +32,7 @@ router.getAsync(`/:contractId/results/logs`, ContractController.getContractLogs)
 router.getAsync(`/:contractId/results/:consensusTimestamp([0-9.]+)`, ContractController.getContractResultsByTimestamp);
 router.getAsync(`/results/:transactionId`, ContractController.getContractResultsByTransactionId);
 
-module.exports = {
+export {
   resource,
   router,
 };

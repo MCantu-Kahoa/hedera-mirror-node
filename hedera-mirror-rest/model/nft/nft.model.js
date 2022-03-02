@@ -56,4 +56,4 @@ class Nft {
   }
 }
 
-module.exports = Nft;
+export default  {Nft};

@@ -29,6 +29,6 @@ class InvalidConfigError extends Error {
   }
 }
 
-module.exports = {
+export {
   InvalidConfigError,
 };

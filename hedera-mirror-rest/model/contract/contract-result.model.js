@@ -20,7 +20,7 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
 class ContractResult {
   /**
@@ -60,4 +60,4 @@ class ContractResult {
   }
 }
 
-module.exports = ContractResult;
+export default {ContractResult};

@@ -20,15 +20,15 @@
 
 'use strict';
 
-const AccountAlias = require('../model/account/account-alias.model');
-const base32 = require('../utils/base32');
-const {getAccountContractUnionQueryWithOrder} = require('../model/account/account-contract.model');
-const constants = require('../utils/constants');
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
-const transactions = require('./transaction.controller');
-const {NotFoundError} = require('../errors/notFoundError');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+import { AccountAlias } from '../model/account/account-alias.model.js';
+import base32 from '../utils/base32.js';
+import {getAccountContractUnionQueryWithOrder} from '../model/account/account-contract.model.js';
+import * as constants from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
+import * as transactions from './transaction.controller.js';
+import {NotFoundError} from '../errors/notFoundError.js';
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
 
 /**
  * Processes one row of the results of the SQL query and format into API return format
@@ -316,7 +316,7 @@ const getBalanceParamValue = (query) => {
  * @param {Response} res HTTP response object
  * @return {Promise}
  */
-const getAccounts = async (req, res) => {
+export const getAccounts = async (req, res) => {
   // Validate query parameters first
   utils.validateReq(req);
 
@@ -383,7 +383,7 @@ const getAccounts = async (req, res) => {
  * @param {string} accountAliasStr
  * @return {{query: string, params: *[]}}
  */
-const getAccountAliasQuery = (accountAliasStr) => {
+export const getAccountAliasQuery = (accountAliasStr) => {
   const accountAlias = AccountAlias.fromString(accountAliasStr);
   const columns = ['shard', 'realm', 'alias'];
   const conditions = ['deleted <> true'];
@@ -430,7 +430,7 @@ const getAccountIdFromAccountAlias = async (accountAlias) => {
  * @param {Response} res HTTP response object
  * @return {Promise}
  */
-const getOneAccount = async (req, res) => {
+export const getOneAccount = async (req, res) => {
   // Validate query parameters first
   utils.validateReq(req);
 
@@ -537,11 +537,6 @@ const getOneAccount = async (req, res) => {
 
   logger.debug(`getOneAccount returning ${ret.transactions.length} transactions entries`);
   res.locals[constants.responseDataLabel] = ret;
-};
-
-module.exports = {
-  getAccounts,
-  getOneAccount,
 };
 
 if (utils.isTestEnv()) {

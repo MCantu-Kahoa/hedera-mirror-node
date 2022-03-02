@@ -29,6 +29,6 @@ class FileDownloadError extends Error {
   }
 }
 
-module.exports = {
+export {
   FileDownloadError,
 };

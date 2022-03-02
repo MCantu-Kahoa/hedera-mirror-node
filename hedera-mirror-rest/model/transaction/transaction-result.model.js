@@ -20,7 +20,7 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
 const protoToName = {
   0: 'OK',
@@ -300,7 +300,7 @@ const getSuccessProtoId = () => {
   return getProtoId(SUCCESS);
 };
 
-module.exports = {
+export default {
   getName,
   getProtoId,
   getSuccessProtoId,

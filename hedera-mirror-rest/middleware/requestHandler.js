@@ -20,11 +20,11 @@
 
 'use strict';
 
-const httpContext = require('express-http-context');
-const qs = require('qs');
-const constants = require('../utils/constants');
-const {randomString} = require('../utils/utils');
-const {httpStatusCodes} = require('../utils/constants');
+import httpContext from 'express-http-context';
+import qs from 'qs';
+import * as constants from '../utils/constants.js'
+import {randomString} from '../utils/utils.js';
+import {httpStatusCodes} from '../utils/constants.js';
 
 const requestLogger = async (req, res, next) => {
   const requestId = await randomString(8);
@@ -74,7 +74,7 @@ const requestQueryParser = (queryString) => {
   return caseInsensitiveQueryString;
 };
 
-module.exports = {
+export {
   requestLogger,
   requestQueryParser,
 };

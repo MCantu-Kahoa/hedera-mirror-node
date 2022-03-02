@@ -20,8 +20,8 @@
 
 'use strict';
 
-const proto = require('@hashgraph/proto');
-const {logger, protoTransactionIdToTransactionId} = require('./utils');
+import proto from '@hashgraph/proto';
+import {logger, protoTransactionIdToTransactionId} from './utils.js';
 
 class RecordFile {
   constructor() {
@@ -131,4 +131,4 @@ class RecordFile {
   }
 }
 
-module.exports = RecordFile;
+export default RecordFile;

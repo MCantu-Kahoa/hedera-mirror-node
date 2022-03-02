@@ -20,8 +20,8 @@
 
 'use strict';
 
-const log4js = require('log4js');
-const config = require('../config');
+import log4js from 'log4js';
+import {getConfig as config} from '../config.js';
 
 const invalidBase32Strs = [
   // A base32 group without padding can have 2, 4, 5, 7 or 8 characters from its alphabet
@@ -248,7 +248,7 @@ const configureLogger = () => {
     categories: {
       default: {
         appenders: ['console'],
-        level: config.log.level,
+        level: config().log.level,
       },
     },
   });
@@ -261,7 +261,7 @@ const getBuffer = (inputBytes, defaultBytes) => {
 
 configureLogger();
 
-module.exports = {
+export {
   assertSqlQueryEqual,
   badParamsList,
   checkSql,

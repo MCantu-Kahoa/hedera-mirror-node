@@ -20,7 +20,7 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
 class RecordFile {
   /**
@@ -65,4 +65,4 @@ class RecordFile {
   }
 }
 
-module.exports = RecordFile;
+export default {RecordFile};

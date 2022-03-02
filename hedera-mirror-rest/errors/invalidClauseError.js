@@ -29,6 +29,6 @@ class InvalidClauseError extends Error {
   }
 }
 
-module.exports = {
+export {
   InvalidClauseError,
 };

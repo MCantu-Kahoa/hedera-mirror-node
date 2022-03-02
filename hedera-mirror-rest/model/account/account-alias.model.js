@@ -20,8 +20,8 @@
 
 'use strict';
 
-const base32 = require('../../utils/base32');
-const {InvalidArgumentError} = require('../../errors/invalidArgumentError');
+import base32  from '../../utils/base32.js';
+import {InvalidArgumentError}  from '../../errors/invalidArgumentError.js';
 
 class AccountAlias {
   /**
@@ -81,4 +81,4 @@ const accountAliasRegex = /^(\d{1,5}\.){0,2}[A-Z2-7]+$/;
  */
 const isValid = (accountAlias) => typeof accountAlias == 'string' && accountAliasRegex.test(accountAlias);
 
-module.exports = AccountAlias;
+export {AccountAlias};

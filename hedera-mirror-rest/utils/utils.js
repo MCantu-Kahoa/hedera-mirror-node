@@ -20,25 +20,29 @@
 
 'use strict';
 
-const {TransactionID} = require('@hashgraph/proto');
-const _ = require('lodash');
-const crypto = require('crypto');
-const anonymize = require('ip-anonymize');
-const long = require('long');
-const math = require('mathjs');
-const util = require('util');
+import { TransactionID } from '@hashgraph/proto';
+import _ from 'lodash';
+import crypto from 'crypto';
+import anonymize from 'ip-anonymize';
+import long from 'long';
+import {multiply, bignumber, floor} from 'mathjs';
+import util from 'util';
 
-const constants = require('./constants');
-const EntityId = require('../entityId');
-const config = require('../config');
-const ed25519 = require('../ed25519');
-const {DbError} = require('../errors/dbError');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
-const {InvalidClauseError} = require('../errors/invalidClauseError');
-const {TransactionResult, TransactionType} = require('../model');
-const {keyTypes} = require('./constants');
+import * as constants from './constants.js';
+import * as EntityId from '../entityId.js'
+import {getConfig} from '../config.js';
+import * as ed25519 from '../ed25519.js';
+import { DbError } from '../errors/dbError.js';
+import { InvalidArgumentError } from '../errors/invalidArgumentError.js';
+import { InvalidClauseError } from '../errors/invalidClauseError.js';
+import { TransactionResult, TransactionType } from '../model/index.js';
+import { keyTypes } from './constants.js';
 
-const responseLimit = config.response.limit;
+import pg from 'pg';
+import pgRange from 'pg-range';
+import {Pool as MockPool}  from '../__tests__/mockpool.js';
+
+const responseLimit = getConfig().response.limit;
 const resultSuccess = TransactionResult.getSuccessProtoId();
 
 const opsMap = {
@@ -266,17 +270,17 @@ const validateReq = (req) => {
           code: InvalidArgumentError.PARAM_COUNT_EXCEEDS_MAX_CODE,
           key,
           count: req.query[key].length,
-          max: config.maxRepeatedQueryParameters,
+          max:  getConfig().maxRepeatedQueryParameters,
         });
         continue;
       }
       for (const val of req.query[key]) {
         if (!paramValidityChecks(key, val)) {
-          badParams.push({code: InvalidArgumentError.INVALID_ERROR_CODE, key});
+          badParams.push({ code: InvalidArgumentError.INVALID_ERROR_CODE, key });
         }
       }
     } else if (!paramValidityChecks(key, req.query[key])) {
-      badParams.push({code: InvalidArgumentError.INVALID_ERROR_CODE, key});
+      badParams.push({ code: InvalidArgumentError.INVALID_ERROR_CODE, key });
     }
   }
 
@@ -285,7 +289,7 @@ const validateReq = (req) => {
   }
 };
 
-const isRepeatedQueryParameterValidLength = (values) => values.length <= config.maxRepeatedQueryParameters;
+const isRepeatedQueryParameterValidLength = (values) => values.length <=  getConfig().maxRepeatedQueryParameters;
 
 const parseTimestampParam = (timestampParam) => {
   // Expect timestamp input as (a) just seconds,
@@ -314,13 +318,13 @@ const parseOperatorAndValueFromQueryParam = (paramValue) => {
   const splitItem = paramValue.split(':');
   if (splitItem.length === 1) {
     // No operator specified. Just use "eq:"
-    return {op: opsMap.eq, value: splitItem[0]};
+    return { op: opsMap.eq, value: splitItem[0] };
   }
   if (splitItem.length === 2) {
     if (!(splitItem[0] in opsMap)) {
       return null;
     }
-    return {op: opsMap[splitItem[0]], value: splitItem[1]};
+    return { op: opsMap[splitItem[0]], value: splitItem[1] };
   }
   return null;
 };
@@ -557,8 +561,8 @@ const convertMySqlStyleQueryToPostgres = (sqlQuery, startIndex = 1) => {
  */
 const getPaginationLink = (req, isEnd, field, lastValue, order) => {
   let urlPrefix;
-  if (config.port !== undefined && config.response.includeHostInLink) {
-    urlPrefix = `${req.protocol}://${req.hostname}:${config.port}`;
+  if ( getConfig().port !== undefined &&  getConfig().response.includeHostInLink) {
+    urlPrefix = `${req.protocol}://${req.hostname}:${ getConfig().port}`;
   } else {
     urlPrefix = '';
   }
@@ -656,11 +660,11 @@ const nsToSecNsWithHyphen = (ns) => {
  * @return {String} ns Nanoseconds since epoch
  */
 const secNsToNs = (secNs) => {
-  return math.multiply(math.bignumber(secNs), math.bignumber(1e9)).toString();
+  return multiply(bignumber(secNs), bignumber(1e9)).toString();
 };
 
 const secNsToSeconds = (secNs) => {
-  return math.floor(Number(secNs));
+  return floor(Number(secNs));
 };
 
 const randomBytesAsync = util.promisify(crypto.randomBytes);
@@ -949,7 +953,7 @@ const parseTokenBalances = (tokenBalances) => {
   return tokenBalances
     .filter((x) => !_.isNil(x.token_id))
     .map((tokenBalance) => {
-      const {token_id: tokenId, balance} = tokenBalance;
+      const { token_id: tokenId, balance } = tokenBalance;
       return {
         token_id: EntityId.parse(tokenId).toString(),
         balance,
@@ -987,7 +991,7 @@ const ipMask = (ip) => {
  * @param {boolean} mock
  */
 const getPoolClass = (mock = false) => {
-  const Pool = mock ? require('../__tests__/mockpool') : require('pg').Pool;
+  const Pool = mock ? MockPool : pg.Pool;
   Pool.prototype.queryQuietly = async function (query, params = [], preQueryHint = undefined) {
     let client;
     let result;
@@ -1021,9 +1025,8 @@ const getPoolClass = (mock = false) => {
 /**
  * Loads and installs pg-range for pg
  */
-const loadPgRange = () => {
-  const pg = require('pg');
-  const pgRange = require('pg-range');
+const loadPgRange = async () => {
+
   pgRange.install(pg);
 };
 
@@ -1090,7 +1093,7 @@ const checkTimestampRange = (timestampFilters) => {
   }
 };
 
-module.exports = {
+export { 
   addHexPrefix,
   buildAndValidateFilters,
   buildComparatorFilter,
@@ -1139,15 +1142,10 @@ module.exports = {
   secNsToSeconds,
   toHexString,
   validateReq,
-};
-
-if (isTestEnv()) {
-  Object.assign(module.exports, {
-    buildFilters,
-    formatComparator,
-    formatFilters,
-    getLimitParamValue,
-    validateAndParseFilters,
-    validateFilters,
-  });
+  buildFilters,
+  formatComparator,
+  formatFilters,
+  getLimitParamValue,
+  validateAndParseFilters,
+  validateFilters,
 }

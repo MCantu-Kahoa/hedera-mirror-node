@@ -20,14 +20,14 @@
 
 'use strict';
 
-const _ = require('lodash');
-const EntityId = require('../entityId');
-const utils = require('../utils/utils');
+import _ from 'lodash';
+import * as EntityId from '../entityId.js'
+import * as utils from '../utils/utils.js'
 
 /**
  * Contract results view model
  */
-class ContractResultViewModel {
+export default class ContractResultViewModel {
   /**
    * Constructs contractResult view model
    *
@@ -49,5 +49,3 @@ class ContractResultViewModel {
     this.to = contractId.toEvmAddress();
   }
 }
-
-module.exports = ContractResultViewModel;

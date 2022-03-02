@@ -20,7 +20,7 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 const math = require('mathjs');
 const config = require('./config');
 const {
@@ -312,7 +312,7 @@ const runTests = async (server, testResult) => {
   ]);
 };
 
-module.exports = {
+export {
   resource,
   runTests,
 };
