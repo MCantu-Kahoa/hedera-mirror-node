@@ -22,18 +22,18 @@
 
 // external libraries
 import _ from 'lodash';
-import log4js from'log4js';
-import path from'path';
-import AddressBook from'./addressBook.js';
-import {CompositeRecordFile, SignatureFile} from'../stream/index.js';
-import TransactionId from'../transactionId.js';
-import {performStateProof} from'./transactionValidator.js';
-import {makeStateProofDir, storeFile} from'./utils';
+import log4js from 'log4js';
+import path from 'path';
+import AddressBook from './addressBook.js';
+import {CompositeRecordFile, SignatureFile} from '../stream/index.js';
+import TransactionId from '../transactionId.js';
+import {performStateProof} from './transactionValidator.js';
+import {makeStateProofDir, storeFile} from './utils';
 
 const logger = log4js.getLogger();
 
 // responsible for parsing response data to valid AddressBook, recordFile and SignFiles objects
-class StateProofHandler {
+export default class StateProofHandler {
   constructor(stateProofJson, transactionId, nonce = 0, scheduled = false) {
     this.transactionId = TransactionId.fromString(transactionId);
     this.nonce = nonce;
@@ -124,5 +124,3 @@ class StateProofHandler {
     });
   }
 }
-
-export default StateProofHandler;

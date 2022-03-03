@@ -20,15 +20,15 @@
 
 'use strict';
 
-const _ = require('lodash');
-const math = require('mathjs');
-const pgformat = require('pg-format');
+import _ from 'lodash';
+import * as math from 'mathjs';
+import pgformat from 'pg-format';
 
-const base32 = require('../base32');
-const config = require('../config');
-const constants = require('../constants');
-const EntityId = require('../entityId');
-const testUtils = require('./testutils');
+import base32 from '../utils/base32.js';
+import {getConfig as config} from '../config.js';
+import * as constants from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
+import * as testUtils from './testutils.js';
 
 const NETWORK_FEE = 1;
 const NODE_FEE = 2;
@@ -371,7 +371,7 @@ const addCustomFee = async (customFee) => {
 
 const setAccountBalance = async (balance) => {
   balance = {timestamp: 0, id: null, balance: 0, realm_num: 0, ...balance};
-  const accountId = EntityId.of(BigInt(config.shard), BigInt(balance.realm_num), BigInt(balance.id)).getEncodedId();
+  const accountId = EntityId.of(BigInt(config().shard), BigInt(balance.realm_num), BigInt(balance.id)).getEncodedId();
   await sqlConnection.query(
     `INSERT INTO account_balance (consensus_timestamp, account_id, balance)
      VALUES ($1, $2, $3);`,
@@ -392,7 +392,7 @@ const setAccountBalance = async (balance) => {
       accountId,
       tokenBalance.balance,
       EntityId.of(
-        BigInt(config.shard),
+        BigInt(config().shard),
         BigInt(tokenBalance.token_realm),
         BigInt(tokenBalance.token_num)
       ).getEncodedId(),
@@ -1028,7 +1028,7 @@ const insertDomainObject = async (table, fields, obj) => {
   );
 };
 
-module.exports = {
+export {
   addAccount,
   addCryptoTransaction,
   addNft,

@@ -20,9 +20,9 @@
 
 'use strict';
 
-const log4js = require('log4js');
-const EntityId = require('../entityId');
-const TransactionId = require('../transactionId');
+import log4js from 'log4js';
+import * as EntityId from '../entityId.js';
+import {TransactionId, fromString} from '../utils/transactionId.js';
 
 // create a minimal global logger for transactionId to log errors.
 global.logger = log4js.getLogger();
@@ -45,7 +45,7 @@ describe('TransactionId from invalid transaction ID string', () => {
   invalidTransactionIdStrs.forEach((invalidTransactionIdStr) => {
     test(`invalid transaction ID - ${invalidTransactionIdStr}`, () => {
       expect(() => {
-        TransactionId.fromString(invalidTransactionIdStr);
+        fromString(invalidTransactionIdStr);
       }).toThrow();
     });
   });
@@ -76,7 +76,7 @@ describe('TransactionId toString', () => {
     test(testSpec.input, () => {
       const {input} = testSpec;
       const expected = testSpec.expected ? testSpec.expected : input;
-      expect(TransactionId.fromString(input).toString()).toEqual(expected);
+      expect(fromString(input).toString()).toEqual(expected);
     });
   });
 });
@@ -95,7 +95,7 @@ describe('TransactionId getEntityId', () => {
 
   testSpecs.forEach((testSpec) => {
     test(testSpec.transactionIdStr, () => {
-      expect(TransactionId.fromString(testSpec.transactionIdStr).getEntityId()).toEqual(testSpec.entityId);
+      expect(fromString(testSpec.transactionIdStr).getEntityId()).toEqual(testSpec.entityId);
     });
   });
 });
@@ -118,7 +118,7 @@ describe('TransactionId getValidStartNs', () => {
 
   testSpecs.forEach((testSpec) => {
     test(testSpec.transactionIdStr, () => {
-      expect(TransactionId.fromString(testSpec.transactionIdStr).getValidStartNs()).toEqual(testSpec.validStartNs);
+      expect(fromString(testSpec.transactionIdStr).getValidStartNs()).toEqual(testSpec.validStartNs);
     });
   });
 });

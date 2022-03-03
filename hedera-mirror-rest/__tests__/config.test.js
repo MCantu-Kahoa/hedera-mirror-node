@@ -25,7 +25,9 @@ import os from 'os';
 import path from 'path';
 import yaml from 'js-yaml';
 import _ from 'lodash';
-import {cloudProviders, defaultBucketNames, networks} from '../constants.js';
+import {cloudProviders, defaultBucketNames, networks} from '../utils/constants.js';
+import {jest} from '@jest/globals';
+import {getConfig as config} from '../config.js';
 
 let tempDir;
 const custom = {
@@ -69,95 +71,94 @@ const assertCustomConfig = (actual, customConfig) => {
 
 describe('Load YAML configuration:', () => {
   test('./config/application.yml', () => {
-    const config = require('../config');
-    expect(config.shard).toBe(0);
-    expect(config.response.includeHostInLink).toBe(false);
-    expect(config.log.level).toBe('info');
+    expect(config().shard).toBe(0);
+    expect(config().response.includeHostInLink).toBe(false);
+    expect(config().log.level).toBe('info');
   });
 
   test('./application.yml', () => {
     fs.writeFileSync(path.join('.', 'application.yml'), yaml.dump(custom));
-    const config = require('../config');
-    assertCustomConfig(config, custom);
+
+    assertCustomConfig(config(), custom);
   });
 
   test('CONFIG_PATH/application.yml', () => {
     fs.writeFileSync(path.join(tempDir, 'application.yml'), yaml.dump(custom));
-    const config = require('../config');
-    assertCustomConfig(config, custom);
+
+    assertCustomConfig(config(), custom);
   });
 
   test('CONFIG_PATH/application.yaml', () => {
     fs.writeFileSync(path.join(tempDir, 'application.yaml'), yaml.dump(custom));
-    const config = require('../config');
-    assertCustomConfig(config, custom);
+
+    assertCustomConfig(config(), custom);
   });
 });
 
 describe('Load environment configuration:', () => {
   test('Number', () => {
     process.env = {HEDERA_MIRROR_REST_SHARD: '2', HEDERA_MIRROR_REST_PORT: '5552'};
-    const config = require('../config');
-    expect(config.shard).toBe(2);
-    expect(config.port).toBe(5552);
+
+    expect(config().shard).toBe(2);
+    expect(config().port).toBe(5552);
   });
 
   test('String', () => {
     process.env = {HEDERA_MIRROR_REST_LOG_LEVEL: 'warn'};
-    const config = require('../config');
-    expect(config.log.level).toBe('warn');
+
+    expect(config().log.level).toBe('warn');
   });
 
   test('Boolean', () => {
     process.env = {HEDERA_MIRROR_REST_RESPONSE_INCLUDEHOSTINLINK: 'true'};
-    const config = require('../config');
-    expect(config.response.includeHostInLink).toBe(true);
+
+    expect(config().response.includeHostInLink).toBe(true);
   });
 
   test('Camel case', () => {
     process.env = {HEDERA_MIRROR_REST_MAXREPEATEDQUERYPARAMETERS: '50'};
-    const config = require('../config');
-    expect(config.maxRepeatedQueryParameters).toBe(50);
+
+    expect(config().maxRepeatedQueryParameters).toBe(50);
   });
 
   test('Unknown property', () => {
     process.env = {HEDERA_MIRROR_REST_FOO: '3'};
-    const config = require('../config');
-    expect(config.foo).toBeUndefined();
+
+    expect(config().foo).toBeUndefined();
   });
 
   test('Invalid property path', () => {
     process.env = {HEDERA_MIRROR_REST_SHARD_FOO: '3'};
-    const config = require('../config');
-    expect(config.shard).toBe(0);
+
+    expect(config().shard).toBe(0);
   });
   test('Unexpected prefix', () => {
     process.env = {HEDERA_MIRROR_NODE_REST_PORT: '80'};
-    const config = require('../config');
-    expect(config.port).not.toBe(80);
+
+    expect(config().port).not.toBe(80);
   });
   test('Extra path', () => {
     process.env = {HEDERA_MIRROR_REST_SERVICE_PORT: '80'};
-    const config = require('../config');
-    expect(config.port).not.toBe(80);
+
+    expect(config().port).not.toBe(80);
   });
   test('Max Timestamp Range 3d', () => {
     process.env = {HEDERA_MIRROR_REST_MAXTIMESTAMPRANGE: '3d'};
-    const config = require('../config');
-    expect(config.maxTimestampRangeNs).toBe(259200000000000n);
+
+    expect(config().maxTimestampRangeNs).toBe(259200000000000n);
   });
   test('Max Timestamp Range 120d - larger than js MAX_SAFE_INTEGER', () => {
     process.env = {HEDERA_MIRROR_REST_MAXTIMESTAMPRANGE: '120d'};
-    const config = require('../config');
-    expect(config.maxTimestampRangeNs).toBe(10368000000000000n);
+
+    expect(config().maxTimestampRangeNs).toBe(10368000000000000n);
   });
   test('Max Timestamp Range invalid', () => {
     process.env = {HEDERA_MIRROR_REST_MAXTIMESTAMPRANGE: '3x'};
-    expect(() => require('../config')).toThrowErrorMatchingSnapshot();
+    expect(() => config()).toThrowErrorMatchingSnapshot();
   });
   test('Max Timestamp Range null', () => {
     process.env = {HEDERA_MIRROR_REST_MAXTIMESTAMPRANGE: null};
-    expect(() => require('../config')).toThrowErrorMatchingSnapshot();
+    expect(() => config()).toThrowErrorMatchingSnapshot();
   });
 });
 
@@ -165,7 +166,7 @@ describe('Custom CONFIG_NAME:', () => {
   const loadConfigFromCustomObject = (custom) => {
     fs.writeFileSync(path.join(tempDir, 'config.yml'), yaml.dump(custom));
     process.env = {CONFIG_NAME: 'config', CONFIG_PATH: tempDir};
-    return require('../config');
+    return config();
   };
 
   test('CONFIG_PATH/CONFIG_NAME.yml', () => {
@@ -187,7 +188,7 @@ describe('Override stateproof config', () => {
     };
     fs.writeFileSync(path.join(tempDir, 'application.yml'), yaml.dump(customConfig));
     process.env = {CONFIG_PATH: tempDir};
-    return require('../config');
+    return config();
   };
 
   const getExpectedStreamsConfig = (override) => {
@@ -313,7 +314,7 @@ describe('Override db pool config', () => {
       process.env = {CONFIG_PATH: tempDir};
     }
 
-    return require('../config');
+    return {...config()};
   };
 
   const testSpecs = [

@@ -20,7 +20,7 @@
 
 'use strict';
 
-import * as  utils from '../../utils/utils.js';
+import * as utils from '../../utils/utils.js';
 
 const commonFields = [
   'auto_renew_period',
@@ -67,13 +67,4 @@ const getAccountContractUnionQueryWithOrder = (...orderOptions) => {
   `;
 };
 
-export {
-  getAccountContractUnionQueryWithOrder,
-};
-
-if (utils.isTestEnv()) {
-  Object.assign(module.exports, {
-    accountFields,
-    contractFields,
-  });
-}
+export {getAccountContractUnionQueryWithOrder, accountFields, contractFields};

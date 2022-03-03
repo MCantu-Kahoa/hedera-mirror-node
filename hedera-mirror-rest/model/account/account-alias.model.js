@@ -20,10 +20,10 @@
 
 'use strict';
 
-import base32  from '../../utils/base32.js';
-import {InvalidArgumentError}  from '../../errors/invalidArgumentError.js';
+import base32 from '../../utils/base32.js';
+import {InvalidArgumentError} from '../../errors/invalidArgumentError.js';
 
-class AccountAlias {
+export default class AccountAlias {
   /**
    * Creates an AccountAlias object.
    * @param {string|null} shard
@@ -80,5 +80,3 @@ const accountAliasRegex = /^(\d{1,5}\.){0,2}[A-Z2-7]+$/;
  * @return {boolean}
  */
 const isValid = (accountAlias) => typeof accountAlias == 'string' && accountAliasRegex.test(accountAlias);
-
-export {AccountAlias};

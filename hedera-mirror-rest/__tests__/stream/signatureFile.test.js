@@ -20,10 +20,11 @@
 
 'use strict';
 
-const {BYTE_SIZE} = require('../../stream/constants');
-const {SHA_384} = require('../../stream/hashObject');
-const SignatureFile = require('../../stream/signatureFile');
-const {testSignatureFiles} = require('./testUtils');
+import {BYTE_SIZE} from '../../stream/constants.js';
+import HashObject from '../../stream/hashObject.js';
+import SignatureFile from '../../stream/signatureFile.js';
+import {testSignatureFiles} from './testUtils.js';
+const {SHA_384} = HashObject;
 
 describe('from signature file buffer', () => {
   Object.entries(testSignatureFiles).forEach(([version, testSpec]) => {

@@ -38,11 +38,11 @@ import TokenTransfer from './token/token-transfer.model.js';
 import TopicMessage from './topic/topic-message.model.js';
 import Transaction from './transaction/transaction.model.js';
 import TransactionId from './transaction/transaction-id.model.js';
-import TransactionResult from './transaction/transaction-result.model.js';
-import TransactionType from './transaction/transaction-type.model.js';
+import AccountAlias from './account/account-alias.model.js';
 
 export {
   AssessedCustomFee,
+  AccountAlias,
   Contract,
   ContractLog,
   ContractResult,
@@ -62,6 +62,4 @@ export {
   TopicMessage,
   Transaction,
   TransactionId,
-  TransactionResult,
-  TransactionType,
 };

@@ -20,13 +20,14 @@
 
 'use strict';
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const {ContractService} = require('../../service');
-const {assertSqlQueryEqual} = require('../testutils');
+import {ContractService} from '../../service/index.js';
+import {assertSqlQueryEqual} from '../testutils.js';
 
-const integrationDbOps = require('../integrationDbOps');
-const integrationDomainOps = require('../integrationDomainOps');
+import * as integrationDbOps from '../integrationDbOps.js';
+import * as integrationDomainOps from '../integrationDomainOps.js';
+import {jest} from '@jest/globals';
 
 jest.setTimeout(40000);
 

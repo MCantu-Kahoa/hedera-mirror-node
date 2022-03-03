@@ -23,28 +23,27 @@
 import _ from 'lodash';
 import {Range} from 'pg-range';
 
-import {
-  getConfig
-} from '../config.js';
-import * as constants from '../utils/constants.js'
-import * as EntityId from '../entityId.js'
+import {getConfig} from '../config.js';
+import * as constants from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
 
 // errors
 import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
 import {NotFoundError} from '../errors/notFoundError.js';
 
-import {Contract, ContractLog, ContractResult, FileData, TransactionResult} from '../model/index.js';
+import {Contract, ContractLog, ContractResult, FileData} from '../model/index.js';
+import * as TransactionResult from '../model/transaction/transaction-result.model.js';
 import {ContractService, RecordFileService, TransactionService} from '../service/index.js';
-import TransactionId from '../utils/transactionId.js';
-import * as utils from '../utils/utils.js'
-import{
+import {TransactionId} from '../utils/transactionId.js';
+import * as utils from '../utils/utils.js';
+import {
   ContractViewModel,
   ContractLogViewModel,
   ContractResultViewModel,
   ContractResultDetailsViewModel,
 } from '../viewmodel/index.js';
 import {httpStatusCodes} from '../utils/constants.js';
-
+const defaultLimit = getConfig().response.limit.default;
 const contractSelectFields = [
   Contract.AUTO_RENEW_PERIOD,
   Contract.CREATED_TIMESTAMP,
@@ -97,12 +96,12 @@ const fileDataQuery = `select
  * @return {{limit: number, params: number[], filterQuery: string, order: string}}
  */
 const extractSqlFromContractFilters = (filters) => {
-  const {limit} = getConfig();
+  const {response} = getConfig();
   const filterQuery = {
     filterQuery: '',
-    params: [limit.default],
+    params: [response.limit.default],
     order: constants.orderFilterValues.DESC,
-    limit: limit.default,
+    limit: response.limit.default,
     limitQuery: 'limit $1',
   };
 
@@ -821,4 +820,4 @@ export {
   getLastNonceParamValue,
   validateContractIdAndConsensusTimestampParam,
   validateContractIdParam,
-}
+};

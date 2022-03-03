@@ -20,12 +20,12 @@
 
 'use strict';
 
-import * as EntityId from '../entityId.js'
+import * as EntityId from '../entityId.js';
 
 /**
  * Nft transfer view model
  */
-class NftTransferViewModel {
+export default class NftTransferViewModel {
   constructor(nftTransferModel) {
     this.receiver_account_id = EntityId.parse(nftTransferModel.receiverAccountId, true).toString();
     this.sender_account_id = EntityId.parse(nftTransferModel.senderAccountId, true).toString();
@@ -33,5 +33,3 @@ class NftTransferViewModel {
     this.token_id = EntityId.parse(nftTransferModel.tokenId).toString();
   }
 }
-
-export default {NftTransferViewModel};

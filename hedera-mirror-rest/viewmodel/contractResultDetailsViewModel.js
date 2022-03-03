@@ -23,8 +23,8 @@
 import ContractLogResultsViewModel from './contractResultLogViewModel.js';
 import ContractResultStateChangeViewModel from './contractResultStateChangeViewModel.js';
 import ContractResultViewModel from './contractResultViewModel.js';
-import {TransactionResult} from '../model/index.js';
-import * as utils from '../utils/utils.js'
+import * as TransactionResult from '../model/transaction/transaction-result.model.js';
+import * as utils from '../utils/utils.js';
 
 /**
  * Contract result details view model

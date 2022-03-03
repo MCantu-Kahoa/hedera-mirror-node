@@ -20,7 +20,7 @@
 
 'use strict';
 
-class AssessedCustomFee {
+export default class AssessedCustomFee {
   /**
    * Parses assessed_custom_fee table columns into object
    */
@@ -51,5 +51,3 @@ class AssessedCustomFee {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {AssessedCustomFee};

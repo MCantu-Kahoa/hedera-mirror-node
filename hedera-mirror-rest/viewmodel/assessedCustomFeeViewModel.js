@@ -20,12 +20,12 @@
 
 'use strict';
 
-import * as EntityId from '../entityId.js'
+import * as EntityId from '../entityId.js';
 
 /**
  * Assessed custom fee view model
  */
-class AssessedCustomFeeViewModel {
+export default class AssessedCustomFeeViewModel {
   /**
    * Constructs the assessed custom fee view model
    *
@@ -45,5 +45,3 @@ class AssessedCustomFeeViewModel {
     }
   }
 }
-
-export default {AssessedCustomFeeViewModel};

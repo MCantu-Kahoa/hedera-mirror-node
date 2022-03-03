@@ -20,7 +20,7 @@
 
 'use strict';
 
-const {SignatureType} = require('../../model');
+import {SignatureType} from '../../model/index.js';
 
 describe('getName', () => {
   test('Valid', () => {

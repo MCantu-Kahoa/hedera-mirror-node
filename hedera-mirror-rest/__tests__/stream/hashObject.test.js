@@ -20,7 +20,7 @@
 
 'use strict';
 
-const HashObject = require('../../stream/hashObject');
+import HashObject from '../../stream/hashObject.js';
 
 describe('HashObject', () => {
   let buffer;

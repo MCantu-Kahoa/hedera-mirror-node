@@ -20,21 +20,21 @@
 
 'use strict';
 
-const {AccountID, Timestamp, TransactionID} = require('@hashgraph/proto');
+import {AccountID, Timestamp, TransactionID} from '@hashgraph/proto';
 
-const utils = require('../utils.js');
-const config = require('../config.js');
-const constants = require('../constants.js');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
-const {InvalidClauseError} = require('../errors/invalidClauseError');
-const {TransactionType} = require('../model');
-const {getLimitParamValue} = require('../utils');
-const {keyTypes} = require('../constants');
+import * as utils from '../utils/utils.js';
+import {getConfig as config} from '../config.js';
+import * as constants from '../utils/constants.js';
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
+import {InvalidClauseError} from '../errors/invalidClauseError.js';
+import * as TransactionType from '../model/transaction/transaction-type.model.js';
+import {getLimitParamValue} from '../utils/utils.js';
+import {keyTypes} from '../utils/constants.js';
 
 const ecdsaKey = '02b5ffadf88d625cd9074fa01e5280b773a60ed2de55b0d6f94460c0b5a001a258';
 const ed25519Key = '7a3c5477bdf4a63742647d7cfc4544acc1899d07141caf4cd9fea2f75b28a5cc';
 const ed25519Der = `302a300506032b6570032100${ed25519Key}`;
-const responseLimit = config.response.limit;
+const responseLimit = config().response.limit;
 
 describe('Utils getNullableNumber tests', () => {
   test('Verify getNullableNumber returns correct result for 0', () => {
@@ -861,7 +861,7 @@ describe('Utils parseCreditDebitParams tests', () => {
 });
 
 describe('utils isRepeatedQueryParameterValidLength', () => {
-  const {maxRepeatedQueryParameters} = config;
+  const {maxRepeatedQueryParameters} = config();
   test(`verify account.id with valid amount ${maxRepeatedQueryParameters - 1}`, () => {
     expect(utils.isRepeatedQueryParameterValidLength(Array(maxRepeatedQueryParameters - 1).fill('0.0.3'))).toBeTrue();
   });
@@ -879,7 +879,7 @@ describe('utils validateReq', () => {
       name: 'Too many parameters',
       req: {
         query: {
-          timestamp: Array(config.maxRepeatedQueryParameters + 1).fill('123'),
+          timestamp: Array(config().maxRepeatedQueryParameters + 1).fill('123'),
         },
       },
     },

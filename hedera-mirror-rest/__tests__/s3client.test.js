@@ -20,12 +20,12 @@
 
 'use strict';
 
-const log4js = require('log4js');
-const AWSMock = require('aws-sdk-mock');
-const querystring = require('querystring');
-const {createS3Client} = require('../s3client');
-const config = require('../config');
-const {cloudProviders, defaultCloudProviderEndpoints} = require('../constants');
+import log4js from 'log4js';
+import AWSMock from 'aws-sdk-mock';
+import querystring from 'querystring';
+import {createS3Client} from '../model/s3-client.model.js';
+import {getConfig as config} from '../config.js';
+import {cloudProviders, defaultCloudProviderEndpoints} from '../utils/constants.js';
 
 // create a minimal global logger for createS3Client to log errors.
 global.logger = log4js.getLogger();
@@ -39,13 +39,13 @@ const defaultValidStreamsConfig = {
 };
 
 beforeEach(() => {
-  config.stateproof = {
+  config().stateproof = {
     streams: {...defaultValidStreamsConfig},
   };
 });
 
 const overrideStreamsConfig = (override) => {
-  config.stateproof.streams = Object.assign(config.stateproof.streams, override);
+  config().stateproof.streams = Object.assign(config().stateproof.streams, override);
 };
 
 describe('createS3Client with valid config', () => {
@@ -160,7 +160,7 @@ describe('createS3Client with valid config', () => {
     test(spec.name, async () => {
       overrideStreamsConfig(spec.override);
       const s3Client = createS3Client();
-      await verifyForSuccess(config.stateproof.streams, s3Client);
+      await verifyForSuccess(config().stateproof.streams, s3Client);
     });
   });
 });

@@ -20,7 +20,7 @@
 
 'use strict';
 
-class CryptoTransfer {
+export default class CryptoTransfer {
   /**
    * Parses crypto_transfer table columns into object
    */
@@ -47,5 +47,3 @@ class CryptoTransfer {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {CryptoTransfer};

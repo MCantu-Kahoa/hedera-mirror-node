@@ -28,6 +28,7 @@ import HashObject from './hashObject.js';
 import RecordFile from './recordFile.js';
 import RecordStreamObject from './recordStreamObject.js';
 import {readLengthAndBytes} from './utils.js';
+const {SHA_384} = HashObject;
 
 const {MAX_TRANSACTION_LENGTH, MAX_RECORD_LENGTH} = RecordStreamObject;
 

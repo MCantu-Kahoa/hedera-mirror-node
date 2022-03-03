@@ -21,7 +21,7 @@
 'use strict';
 
 import _ from 'lodash';
-import {InvalidArgumentError}  from '../../errors/invalidArgumentError.js';
+import {InvalidArgumentError} from '../../errors/invalidArgumentError.js';
 
 const protoToName = {
   7: 'CONTRACTCALL',
@@ -95,8 +95,4 @@ const isValid = (name) => {
   return nameToProto[name.toUpperCase()] !== undefined;
 };
 
-export default {
-  isValid,
-  getName,
-  getProtoId,
-};
+export {isValid, getName, getProtoId};

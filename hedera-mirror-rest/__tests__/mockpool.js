@@ -138,11 +138,11 @@ class Pool {
    */
   createMockData(callerFile, parsedparams) {
     let rows = [];
-    if (callerFile === 'transactions') {
+    if (callerFile === 'transaction.controller') {
       rows = this.createMockTransactions(parsedparams);
-    } else if (callerFile === 'balances') {
+    } else if (callerFile === 'balance.controller') {
       rows = this.createMockBalances(parsedparams);
-    } else if (callerFile === 'accounts') {
+    } else if (callerFile === 'account.controller') {
       rows = this.createMockAccounts(parsedparams);
     }
     return rows;

@@ -20,11 +20,11 @@
 
 'use strict';
 
-const log4js = require('log4js');
-const request = require('supertest');
-const server = require('../server');
-const testutils = require('./testutils.js');
-const config = require('../config.js');
+import log4js from 'log4js';
+import request from 'supertest';
+import server from '../server';
+import * as testutils from './testutils.js';
+import {getConfig as config} from '../config.js';
 
 const logger = log4js.getLogger();
 const timeNow = Math.floor(new Date().getTime() / 1000);
@@ -199,7 +199,7 @@ const singletests = {
     urlparam: `timestamp=${timeOneHourAgo}`,
     checks: [{field: 'consensus_timestamp', operator: '<=', value: `${timeOneHourAgo}000000000`}],
     checkFunctions: [
-      {func: validateTsRange, args: [timeOneHourAgo - config.response.limit.max, timeOneHourAgo]},
+      {func: validateTsRange, args: [timeOneHourAgo - config().response.limit.max, timeOneHourAgo]},
       {func: validateFields, args: []},
     ],
   },

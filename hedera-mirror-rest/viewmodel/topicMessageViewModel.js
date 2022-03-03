@@ -22,16 +22,14 @@
 
 import _ from 'lodash';
 
-import * as EntityId from '../entityId.js'
-import * as utils from '../utils/utils.js'
-import {TransactionId} from '../model/index.js';
-import {TransactionID} from '@hashgraph/proto';
-import TransactionIdViewModel from './transactionIdViewModel.js';
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
+import ChunkInfoViewModel from './ChunkInfoViewModel.js';
 
 /**
  * Topic message view model
  */
-class TopicMessageViewModel {
+export default class TopicMessageViewModel {
   /**
    * Constructs topicMessage view model
    *
@@ -49,24 +47,3 @@ class TopicMessageViewModel {
     this.topic_id = EntityId.parse(topicMessage.topicId).toString();
   }
 }
-
-class ChunkInfoViewModel {
-  constructor(topicMessage) {
-    let initialTransactionId;
-    if (!_.isNil(topicMessage.initialTransactionId)) {
-      initialTransactionId = TransactionID.decode(topicMessage.initialTransactionId);
-    } else {
-      initialTransactionId = new TransactionId(
-        topicMessage.payerAccountId,
-        topicMessage.validStartTimestamp,
-        null,
-        null
-      );
-    }
-    this.initial_transaction_id = new TransactionIdViewModel(initialTransactionId);
-    this.number = topicMessage.chunkNum;
-    this.total = topicMessage.chunkTotal;
-  }
-}
-
-export default {TopicMessageViewModel};

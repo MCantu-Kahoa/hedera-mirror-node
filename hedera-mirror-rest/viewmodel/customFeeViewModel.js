@@ -20,12 +20,12 @@
 
 'use strict';
 
-import * as EntityId from '../entityId.js'
+import * as EntityId from '../entityId.js';
 
 /**
  * Custom fee view model
  */
-class CustomFeeViewModel {
+export default class CustomFeeViewModel {
   /**
    * Constructs custom fee view model
    *
@@ -88,5 +88,3 @@ class CustomFeeViewModel {
     };
   }
 }
-
-export default {CustomFeeViewModel};

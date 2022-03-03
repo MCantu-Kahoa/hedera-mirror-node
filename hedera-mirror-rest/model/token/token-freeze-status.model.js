@@ -22,7 +22,7 @@
 
 import {InvalidArgumentError} from '../../errors/invalidArgumentError.js';
 
-class TokenFreezeStatus {
+export default class TokenFreezeStatus {
   static STATUSES = ['NOT_APPLICABLE', 'FROZEN', 'UNFROZEN'];
 
   constructor(id) {
@@ -44,5 +44,3 @@ class TokenFreezeStatus {
     return TokenFreezeStatus.STATUSES[this._id];
   }
 }
-
-export default {TokenFreezeStatus};

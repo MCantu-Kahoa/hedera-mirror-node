@@ -20,18 +20,22 @@
 
 'use strict';
 
-const crypto = require('crypto');
-const {execSync} = require('child_process');
-const fs = require('fs');
-const log4js = require('log4js');
-const path = require('path');
-const {GenericContainer} = require('testcontainers');
-const {db: defaultDbConfig} = require('../config');
-const {isDockerInstalled} = require('./integrationUtils');
-const {getPoolClass, loadPgRange, randomString} = require('../utils');
-const os = require('os');
-
+import crypto from 'crypto';
+import {execSync} from 'child_process';
+import fs from 'fs';
+import log4js from 'log4js';
+import path from 'path';
+import {GenericContainer} from 'testcontainers';
+import {getConfig} from '../config';
+import {isDockerInstalled} from './integrationUtils';
+import {getPoolClass, loadPgRange, randomString} from '../utils/utils.js';
+import os from 'os';
+const defaultDbConfig = getConfig().db;
 const logger = log4js.getLogger();
+import {dirname} from 'path';
+import {fileURLToPath} from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const Pool = getPoolClass();
 loadPgRange();
@@ -217,10 +221,4 @@ const runSqlQuery = async (sqlConnection, query, params) => {
   return sqlConnection.query(query, params);
 };
 
-module.exports = {
-  cleanUp,
-  closeConnection,
-  getConnection,
-  instantiateDatabase,
-  runSqlQuery,
-};
+export {cleanUp, closeConnection, getConnection, instantiateDatabase, runSqlQuery};

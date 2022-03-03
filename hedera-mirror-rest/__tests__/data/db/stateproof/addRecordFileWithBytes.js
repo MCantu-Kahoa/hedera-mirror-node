@@ -22,7 +22,10 @@
 
 const fs = require('fs');
 const path = require('path');
+import {dirname} from 'path';
+import {fileURLToPath} from 'url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const recordFilename = '2021-03-05T05_23_04.299486999Z.rcd';
 const recordFilePath = path.join(__dirname, recordFilename);
 const data = fs.readFileSync(recordFilePath);

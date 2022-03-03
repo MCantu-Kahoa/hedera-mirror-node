@@ -20,18 +20,16 @@
 
 'use strict';
 
-const {Range} = require('pg-range');
+import {Range} from 'pg-range';
 
-const {
-  response: {
-    limit: {default: defaultLimit},
-  },
-} = require('../../config');
-const constants = require('../../constants');
-const contracts = require('../../controllers/contractController');
-const {assertSqlQueryEqual} = require('../testutils');
-const utils = require('../../utils');
-const {Contract} = require('../../model');
+import {getConfig} from '../../config.js';
+import * as constants from '../../utils/constants.js';
+import {ContractController as contracts} from '../../controllers/index.js';
+import {assertSqlQueryEqual} from '../testutils.js';
+import * as utils from '../../utils/utils.js';
+import {Contract} from '../../model/index.js';
+const defaultLimit = getConfig().response.limit.default;
+console.log(getConfig());
 
 const contractFields = [
   Contract.AUTO_RENEW_PERIOD,

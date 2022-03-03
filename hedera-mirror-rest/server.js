@@ -33,7 +33,7 @@ import fs from 'fs';
 
 // local files
 import {router as v1Router} from './routes/v1/index.js';
-import {getConfig as config }from './config.js';
+import {getConfig as config} from './config.js';
 import * as constants from './utils/constants.js';
 import * as health from './health.js';
 import {getPoolClass, isTestEnv, loadPgRange} from './utils/utils.js';
@@ -42,7 +42,7 @@ import {metricsHandler, recordIpAndEndpoint} from './middleware/metricsHandler.j
 import {serveSwaggerDocs, openApiValidator} from './middleware/openapiHandler.js';
 import {responseHandler} from './middleware/responseHandler.js';
 import {requestLogger, requestQueryParser} from './middleware/requestHandler.js';
-
+import {StateproofController} from './controllers/index.js';
 // Logger
 const logger = log4js.getLogger();
 log4js.configure({
@@ -94,11 +94,14 @@ if (config().db.tls.enabled) {
     rejectUnauthorized: false,
   };
 }
+console.log(poolConfig);
 
 const Pool = getPoolClass(isTestEnv());
 loadPgRange();
 const pool = new Pool(poolConfig);
 global.pool = pool;
+
+console.log(JSON.stringify(pool));
 
 // Express configuration. Prior to v0.5 all sets should be configured before use or they won't be picked up
 const app = addAsync(express());
@@ -137,6 +140,13 @@ if (config().metrics.enabled) {
   app.use(metricsHandler());
 }
 
+// stateproof route
+if (config().stateproof.enabled || isTestEnv()) {
+  logger.info('stateproof REST API is enabled, install handler');
+  app.getAsync(`${apiPrefix}/transactions/:transactionId/stateproof`, StateproofController.getStateProofForTransaction);
+} else {
+  logger.info('stateproof REST API is disabled');
+}
 
 // Application Routes
 app.use(`${apiPrefix}`, v1Router);

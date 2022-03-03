@@ -22,7 +22,7 @@
 
 import log4js from 'log4js';
 import {INT_SIZE} from './constants.js';
-import TransactionId from '../utils/transactionId.js';
+import {TransactionId, fromString} from '../utils/transactionId.js';
 
 const logger = log4js.getLogger();
 
@@ -42,7 +42,7 @@ const protoTransactionIdToTransactionId = (transactionId) => {
     transactionValidStart.seconds,
     transactionValidStart.nanos,
   ].join('-');
-  return TransactionId.fromString(transactionIdStr);
+  return fromString(transactionIdStr);
 };
 
 /**
@@ -96,9 +96,4 @@ const readNBytes = (buffer, length) => {
   return buffer.slice(0, length);
 };
 
-export {
-  logger,
-  protoTransactionIdToTransactionId,
-  readLengthAndBytes,
-  readNBytes,
-};
+export {logger, protoTransactionIdToTransactionId, readLengthAndBytes, readNBytes};

@@ -300,8 +300,4 @@ const getSuccessProtoId = () => {
   return getProtoId(SUCCESS);
 };
 
-export default {
-  getName,
-  getProtoId,
-  getSuccessProtoId,
-};
+export {getName, getProtoId, getSuccessProtoId};

@@ -20,8 +20,8 @@
 
 'use strict';
 
-const EntityId = require('../entityId');
-const {InvalidArgumentError} = require('../errors/invalidArgumentError');
+import * as EntityId from '../entityId.js';
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
 
 describe('EntityId isValidEntityId tests', () => {
   test('Verify invalid for null', () => {

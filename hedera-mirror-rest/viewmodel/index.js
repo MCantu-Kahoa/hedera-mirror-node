@@ -30,11 +30,13 @@ import NftTransferViewModel from './nftTransferViewModel.js';
 import NftViewModel from './nftViewModel.js';
 import TopicMessageViewModel from './topicMessageViewModel.js';
 import TransactionIdViewModel from './transactionIdViewModel.js';
+import ChunkInfoViewModel from './ChunkInfoViewModel.js';
 
 export {
   AssessedCustomFeeViewModel,
   CustomFeeViewModel,
   ContractViewModel,
+  ChunkInfoViewModel,
   ContractLogViewModel,
   ContractResultDetailsViewModel,
   ContractResultStateChangeViewModel,
@@ -43,5 +45,5 @@ export {
   NftTransferViewModel,
   NftViewModel,
   TopicMessageViewModel,
-  TransactionIdViewModel
+  TransactionIdViewModel,
 };

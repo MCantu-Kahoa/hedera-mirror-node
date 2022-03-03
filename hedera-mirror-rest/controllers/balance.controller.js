@@ -21,9 +21,9 @@
 'use strict';
 
 import {getAccountContractUnionQueryWithOrder} from '../model/account/account-contract.model.js';
-import * as constants from '../utils/constants.js'
-import * as EntityId from '../entityId.js'
-import * as utils from '../utils/utils.js'
+import * as constants from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
 
 const formatBalancesResult = (req, result, limit, order) => {
   const {rows, sqlQuery} = result;
@@ -132,13 +132,11 @@ const getBalances = async (req, res) => {
   if (logger.isTraceEnabled()) {
     logger.trace(`getBalance query: ${pgSqlQuery} ${JSON.stringify(sqlParams)}`);
   }
-
+  console.log(JSON.stringify(pool));
   // Execute query
   const result = await pool.queryQuietly(pgSqlQuery, sqlParams);
   res.locals[constants.responseDataLabel] = formatBalancesResult(req, result, limit, order);
   logger.debug(`getBalances returning ${result.rows.length} entries`);
 };
 
-export {
-  getBalances,
-};
+export {getBalances};

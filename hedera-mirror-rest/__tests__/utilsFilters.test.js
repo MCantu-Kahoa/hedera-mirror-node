@@ -20,11 +20,11 @@
 
 'use strict';
 
-const sinon = require('sinon');
+import sinon from 'sinon';
 
-const EntityId = require('../entityId');
-const utils = require('../utils.js');
-const constants = require('../constants.js');
+import * as EntityId from '../entityId';
+import * as utils from '../utils/utils.js';
+import * as constants from '../utils/constants.js';
 
 describe('utils buildAndValidateFilters test', () => {
   const query = {

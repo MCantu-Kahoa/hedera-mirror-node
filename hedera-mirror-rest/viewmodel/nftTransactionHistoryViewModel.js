@@ -20,14 +20,14 @@
 
 'use strict';
 
-import * as EntityId from '../entityId.js'
-import * as utils from '../utils/utils.js'
-import {TransactionType} from '../model/index.js';
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
+import * as TransactionType from '../model/transaction/transaction-type.model.js';
 
 /**
  * Nft transaction history transfer view model
  */
-class NftTransactionHistoryViewModel {
+export default class NftTransactionHistoryViewModel {
   constructor(nftTransferModel, transactionModel) {
     this.consensus_timestamp = utils.nsToSecNs(nftTransferModel.consensusTimestamp);
     this.nonce = Number(transactionModel.nonce);
@@ -40,5 +40,3 @@ class NftTransactionHistoryViewModel {
     this.type = TransactionType.getName(transactionModel.type);
   }
 }
-
-export default {NftTransactionHistoryViewModel};

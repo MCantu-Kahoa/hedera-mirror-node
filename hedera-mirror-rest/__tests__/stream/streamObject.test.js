@@ -20,8 +20,8 @@
 
 'use strict';
 
-const {INT_SIZE, LONG_SIZE} = require('../../stream/constants');
-const StreamObject = require('../../stream/streamObject');
+import {INT_SIZE, LONG_SIZE} from '../../stream/constants.js';
+import StreamObject from '../../stream/streamObject.js';
 
 describe('StreamObject', () => {
   let buffer;

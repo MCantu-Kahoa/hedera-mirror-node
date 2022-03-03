@@ -20,15 +20,15 @@
 
 'use strict';
 
-const _ = require('lodash');
-const log4js = require('log4js');
-const request = require('supertest');
+import _ from 'lodash';
+import log4js from 'log4js';
+import request from 'supertest';
 
-const {getAccountAliasQuery, getBalanceParamValue, processRow} = require('../accounts');
-const base32 = require('../base32');
-const constants = require('../constants');
-const server = require('../server');
-const testutils = require('./testutils');
+import {getAccountAliasQuery, getBalanceParamValue, processRow} from '../controllers/account.controller.js';
+import base32 from '../utils/base32.js';
+import * as constants from '../utils/constants.js';
+import server from '../server.js';
+import * as testutils from './testUtils.js';
 
 const logger = log4js.getLogger();
 

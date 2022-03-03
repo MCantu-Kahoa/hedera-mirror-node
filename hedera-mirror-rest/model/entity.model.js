@@ -22,7 +22,7 @@
 
 import _ from 'lodash';
 
-class Entity {
+export default class Entity {
   /**
    * Parses entity table columns into object
    */
@@ -67,5 +67,3 @@ class Entity {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {Entity};

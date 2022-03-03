@@ -20,7 +20,7 @@
 
 'use strict';
 
-class Token {
+export default class Token {
   static tableAlias = 'token';
   static tableName = this.tableAlias;
   static TOKEN_ID = `token_id`;
@@ -57,5 +57,3 @@ class Token {
     this.wipeKey = token.wipe_key;
   }
 }
-
-export default {Token};

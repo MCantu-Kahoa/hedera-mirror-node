@@ -20,13 +20,14 @@
 
 'use strict';
 
-const {RecordFileService} = require('../../service');
+import {RecordFileService} from '../../service/index.js';
 
 // add logger configuration support
-require('../testutils');
+import * as testUtils from '../testutils.js';
 
-const integrationDbOps = require('../integrationDbOps');
-const integrationDomainOps = require('../integrationDomainOps');
+import * as integrationDbOps from '../integrationDbOps.js';
+import * as integrationDomainOps from '../integrationDomainOps.js';
+import {jest} from '@jest/globals';
 
 jest.setTimeout(40000);
 

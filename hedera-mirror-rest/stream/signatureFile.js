@@ -24,6 +24,7 @@ import {BYTE_SIZE, INT_SIZE} from './constants.js';
 import HashObject from './hashObject.js';
 import SignatureObject from './signatureObject.js';
 import {readLengthAndBytes, readNBytes} from './utils.js';
+const {SHA_384} = HashObject;
 
 // version, object stream signature version
 const V5_FILE_HASH_OFFSET = BYTE_SIZE + INT_SIZE;

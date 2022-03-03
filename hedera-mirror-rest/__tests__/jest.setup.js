@@ -20,8 +20,9 @@
 
 'use strict';
 
-const logger = require('log4js').getLogger();
-const matchers = require('jest-extended');
+import logger from 'log4js'; //.getLogger();
+import matchers from 'jest-extended';
+import {jest} from '@jest/globals';
 
 expect.extend(matchers); // add matchers from jest-extended
 jest.setTimeout(2000);
@@ -30,5 +31,5 @@ jest.setTimeout(2000);
 process.env.CONFIG_PATH = '__tests__';
 
 beforeEach(() => {
-  logger.info(expect.getState().currentTestName);
+  logger.getLogger().info(expect.getState().currentTestName);
 });

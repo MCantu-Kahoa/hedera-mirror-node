@@ -9,15 +9,4 @@ const resource = 'transactions';
 router.getAsync(`/`, TransactionController.getTransactions);
 router.getAsync(`/:transactionId`, TransactionController.getTransactionsById);
 
-// stateproof route
-if (getConfig().stateproof.enabled || isTestEnv()) {
-  // logger.info('stateproof REST API is enabled, install handler');
-  router.getAsync(`/:transactionId/stateproof`, StateproofController.getStateProofForTransaction);
-} else {
-  // logger.info('stateproof REST API is disabled');
-}
-
-export {
-  resource,
-  router,
-};
+export {resource, router};

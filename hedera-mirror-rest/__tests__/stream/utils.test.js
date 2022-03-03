@@ -20,10 +20,10 @@
 
 'use strict';
 
-const long = require('long');
-const proto = require('@hashgraph/proto');
-const TransactionId = require('../../transactionId');
-const utils = require('../../stream/utils');
+import long from 'long';
+import proto from '@hashgraph/proto';
+import {TransactionId, fromString} from '../../utils/transactionId.js';
+import * as utils from '../../stream/utils';
 
 describe('protoTransactionIdToTransactionId', () => {
   const accountID = {
@@ -41,7 +41,7 @@ describe('protoTransactionIdToTransactionId', () => {
           nanos: 0,
         },
       }),
-      expected: TransactionId.fromString('0.0.1010-193823-0'),
+      expected: fromString('0.0.1010-193823-0'),
     },
     {
       transactionId: proto.TransactionID.create({
@@ -51,7 +51,7 @@ describe('protoTransactionIdToTransactionId', () => {
           nanos: 999999999,
         },
       }),
-      expected: TransactionId.fromString('0.0.1010-193823-999999999'),
+      expected: fromString('0.0.1010-193823-999999999'),
     },
     {
       transactionId: proto.TransactionID.create({
@@ -61,7 +61,7 @@ describe('protoTransactionIdToTransactionId', () => {
           nanos: 999999999,
         },
       }),
-      expected: TransactionId.fromString(`0.0.1010-${long.MAX_VALUE.toString()}-999999999`),
+      expected: fromString(`0.0.1010-${long.MAX_VALUE.toString()}-999999999`),
     },
   ];
 

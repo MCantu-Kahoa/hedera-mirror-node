@@ -22,14 +22,14 @@
 
 import _ from 'lodash';
 
-import * as EntityId from '../entityId.js'
+import * as EntityId from '../entityId.js';
 import {TransactionID} from '@hashgraph/proto';
-import * as utils from '../utils/utils.js'
+import * as utils from '../utils/utils.js';
 
 /**
  * TransactionId view model
  */
-class TransactionIdViewModel {
+export default class TransactionIdViewModel {
   /**
    * Constructs transactionId view model from proto transaction id or TransactionId model
    *
@@ -54,5 +54,3 @@ class TransactionIdViewModel {
     }
   }
 }
-
-export default {TransactionIdViewModel};

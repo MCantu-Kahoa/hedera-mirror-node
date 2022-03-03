@@ -20,7 +20,7 @@
 
 'use strict';
 
-const {TokenKycStatus} = require('../../model');
+import {TokenKycStatus} from '../../model/index.js';
 
 describe('TokenKycStatus', () => {
   describe('invalid id', () => {

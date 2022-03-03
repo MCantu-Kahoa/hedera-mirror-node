@@ -22,7 +22,7 @@
 
 import {InvalidArgumentError} from '../../errors/invalidArgumentError.js';
 
-class TokenKycStatus {
+export default class TokenKycStatus {
   static STATUSES = ['NOT_APPLICABLE', 'GRANTED', 'REVOKED'];
 
   constructor(id) {
@@ -44,5 +44,3 @@ class TokenKycStatus {
     return TokenKycStatus.STATUSES[this._id];
   }
 }
-
-export default {TokenKycStatus};

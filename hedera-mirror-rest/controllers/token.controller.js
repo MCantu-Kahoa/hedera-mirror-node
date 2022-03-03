@@ -22,19 +22,17 @@
 
 import _ from 'lodash';
 
-import {
-  getConfig
-} from '../config.js';
-import * as constants from '../utils/constants.js'
-import * as EntityId from '../entityId.js'
-import * as utils from '../utils/utils.js'
+import {getConfig} from '../config.js';
+import * as constants from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
 
 // errors
 import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
 import {NotFoundError} from '../errors/notFoundError.js';
 
 // models
-import {CustomFee, Entity, Nft, NftTransfer, Token, Transaction, TransactionType} from '../model/index.js';
+import {CustomFee, Entity, Nft, NftTransfer, Token, Transaction} from '../model/index.js';
 
 // middleware
 import {httpStatusCodes} from '../utils/constants.js';
@@ -795,6 +793,7 @@ const getTokenInfo = async (query, params) => {
  */
 const extractSqlFromNftTransferHistoryRequest = (tokenId, serialNumber, filters) => {
   let limit = getConfig().response.limit.default;
+  console.log('LIMIT HERE', limit);
   let order = constants.orderFilterValues.DESC;
 
   const params = [tokenId, serialNumber];
@@ -961,29 +960,49 @@ export {
   getTokenInfoRequest,
   getTokensRequest,
   getTokenBalances,
+  entityIdJoinQuery,
+  extractSqlFromNftTransferHistoryRequest,
+  extractSqlFromTokenInfoRequest,
+  extractSqlFromTokenRequest,
+  extractSqlFromNftTokenInfoRequest,
+  extractSqlFromNftTokensRequest,
+  extractSqlFromTokenBalancesRequest,
+  formatNftHistoryRow,
+  formatTokenBalanceRow,
+  formatTokenInfoRow,
+  formatTokenRow,
+  nftSelectQuery,
+  tokenAccountCte,
+  tokenAccountJoinQuery,
+  tokenBalancesSelectQuery,
+  tokensSelectQuery,
+  validateSerialNumberParam,
+  validateTokenIdParam,
+  validateTokenInfoFilter,
+  validateTokenQueryFilter,
 };
 
-if (utils.isTestEnv()) {
-  Object.assign(module.exports, {
-    entityIdJoinQuery,
-    extractSqlFromNftTransferHistoryRequest,
-    extractSqlFromTokenInfoRequest,
-    extractSqlFromTokenRequest,
-    extractSqlFromNftTokenInfoRequest,
-    extractSqlFromNftTokensRequest,
-    extractSqlFromTokenBalancesRequest,
-    formatNftHistoryRow,
-    formatTokenBalanceRow,
-    formatTokenInfoRow,
-    formatTokenRow,
-    nftSelectQuery,
-    tokenAccountCte,
-    tokenAccountJoinQuery,
-    tokenBalancesSelectQuery,
-    tokensSelectQuery,
-    validateSerialNumberParam,
-    validateTokenIdParam,
-    validateTokenInfoFilter,
-    validateTokenQueryFilter,
-  });
-}
+// if (utils.isTestEnv()) {
+//   Object.assign(module.exports, {
+//     entityIdJoinQuery,
+//     extractSqlFromNftTransferHistoryRequest,
+//     extractSqlFromTokenInfoRequest,
+//     extractSqlFromTokenRequest,
+//     extractSqlFromNftTokenInfoRequest,
+//     extractSqlFromNftTokensRequest,
+//     extractSqlFromTokenBalancesRequest,
+//     formatNftHistoryRow,
+//     formatTokenBalanceRow,
+//     formatTokenInfoRow,
+//     formatTokenRow,
+//     nftSelectQuery,
+//     tokenAccountCte,
+//     tokenAccountJoinQuery,
+//     tokenBalancesSelectQuery,
+//     tokensSelectQuery,
+//     validateSerialNumberParam,
+//     validateTokenIdParam,
+//     validateTokenInfoFilter,
+//     validateTokenQueryFilter,
+//   });
+// }

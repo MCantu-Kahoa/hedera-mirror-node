@@ -20,13 +20,13 @@
 
 'use strict';
 
-import * as EntityId from '../entityId.js'
-import * as utils from '../utils/utils.js'
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
 
 /**
  * Contract view model
  */
-class ContractViewModel {
+export default class ContractViewModel {
   /**
    * Constructs contract view model
    *
@@ -56,5 +56,3 @@ class ContractViewModel {
     }
   }
 }
-
-export default {ContractViewModel};

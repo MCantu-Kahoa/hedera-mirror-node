@@ -20,9 +20,9 @@
 
 'use strict';
 
-const axios = require('axios');
-const {GenericContainer} = require('testcontainers');
-const {isDockerInstalled} = require('./integrationUtils');
+import axios from 'axios';
+import {GenericContainer} from 'testcontainers';
+import {isDockerInstalled} from './integrationUtils.js';
 
 const localstackImageName = 'localstack/localstack';
 const localstackImageTag = '0.12.19.1';
@@ -84,6 +84,4 @@ class S3Ops {
   }
 }
 
-module.exports = {
-  S3Ops,
-};
+export {S3Ops};

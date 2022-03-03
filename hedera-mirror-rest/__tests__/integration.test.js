@@ -41,21 +41,26 @@
  * in the specs/ dir.
  */
 // external libraries
-const S3 = require('aws-sdk/clients/s3');
-const crypto = require('crypto');
-const fs = require('fs');
-const _ = require('lodash');
-const path = require('path');
-const request = require('supertest');
+import S3 from 'aws-sdk/clients/s3';
+import crypto from 'crypto';
+import fs from 'fs';
+import _ from 'lodash';
+import path from 'path';
+import request from 'supertest';
 
-const integrationDbOps = require('./integrationDbOps');
-const integrationDomainOps = require('./integrationDomainOps');
-const {S3Ops} = require('./integrationS3Ops');
-const config = require('../config');
-const {cloudProviders} = require('../constants');
-const EntityId = require('../entityId');
-const server = require('../server');
-const transactions = require('../transactions');
+import * as integrationDbOps from './integrationDbOps.js';
+import * as integrationDomainOps from './integrationDomainOps.js';
+import {S3Ops} from './integrationS3Ops.js';
+import {getConfig as config} from '../config.js';
+import {cloudProviders} from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
+import server from '../server.js';
+import {TransactionController as transactions} from '../controllers/index.js';
+import {dirname} from 'path';
+import {fileURLToPath} from 'url';
+import {jest} from '@jest/globals';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 jest.setTimeout(40000);
 
@@ -288,7 +293,7 @@ describe('DB integration test - spec based', () => {
   let s3Ops;
 
   const configS3ForStateProof = (endpoint) => {
-    config.stateproof = {
+    config().stateproof = {
       addressBookHistory: false,
       enabled: true,
       streams: {
@@ -362,7 +367,7 @@ describe('DB integration test - spec based', () => {
     await s3Ops.start();
     configS3ForStateProof(s3Ops.getEndpointUrl());
     await uploadFilesToS3(s3Ops.getEndpointUrl());
-    configClone = _.cloneDeep(config);
+    configClone = _.cloneDeep(config());
   }, defaultBeforeAllTimeoutMillis);
 
   afterAll(async () => {
@@ -400,13 +405,13 @@ describe('DB integration test - spec based', () => {
       return;
     }
 
-    _.merge(config, override);
+    _.merge(config(), override);
     configOverridden = true;
   };
 
   const restoreConfig = () => {
     if (configOverridden) {
-      _.merge(config, configClone);
+      _.merge(config(), configClone);
       configOverridden = false;
     }
   };

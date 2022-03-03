@@ -20,7 +20,7 @@
 
 'use strict';
 
-class TokenTransfer {
+export default class TokenTransfer {
   /**
    * Parses token_transfer table columns into object
    */
@@ -49,5 +49,3 @@ class TokenTransfer {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {TokenTransfer};

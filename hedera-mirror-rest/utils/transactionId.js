@@ -20,9 +20,9 @@
 
 'use strict';
 
-import * as long from 'long';
-import * as EntityId from '../entityId.js'
-import {InvalidArgumentError}  from '../errors/invalidArgumentError.js';
+import long from 'long';
+import * as EntityId from '../entityId.js';
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
 
 class TransactionId {
   constructor(entityId, validStartSeconds, validStartNanos) {
@@ -76,6 +76,4 @@ const fromString = (transactionIdStr) => {
   return new TransactionId(entityId, seconds, nanos);
 };
 
-export default {
-  fromString,
-};
+export {fromString, TransactionId};

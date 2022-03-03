@@ -20,21 +20,22 @@
 
 'use strict';
 
-const log4js = require('log4js');
-const request = require('supertest');
+import log4js from 'log4js';
+import request from 'supertest';
 
-const constants = require('../constants');
-const server = require('../server');
-const testutils = require('./testutils');
-const {
+import * as constants from '../utils/constants.js';
+import server from '../server.js';
+import * as testutils from './testUtils';
+
+import {
   buildWhereClause,
   createAssessedCustomFeeList,
   createCryptoTransferList,
   createNftTransferList,
   createTransferLists,
   extractSqlFromTransactionsByIdRequest,
-} = require('../transactions');
-const utils = require('../utils');
+} from '../controllers/transaction.controller';
+import * as utils from '../utils/utils';
 
 const logger = log4js.getLogger();
 const timeNow = Math.floor(new Date().getTime() / 1000);

@@ -20,7 +20,7 @@
 
 'use strict';
 
-const ed25519 = require('../ed25519.js');
+import {derToEd25519} from '../ed25519.js';
 
 /**
  * Unit test for derToEd25519.js  to perform on the resultant SQL query.
@@ -31,11 +31,11 @@ describe('Ed25519 tests', () => {
     const validDer = '302a300506032b65700321007a3c5477bdf4a63742647d7cfc4544acc1899d07141caf4cd9fea2f75b28a5cc';
     const validDecoded = '7a3c5477bdf4a63742647d7cfc4544acc1899d07141caf4cd9fea2f75b28a5cc';
 
-    let response = ed25519.derToEd25519(validDer);
+    let response = derToEd25519(validDer);
     expect(response).toEqual(validDecoded);
 
     // Uppercase key
-    response = ed25519.derToEd25519(validDer.toUpperCase());
+    response = derToEd25519(validDer.toUpperCase());
     expect(response).toEqual(validDecoded);
   });
 
@@ -57,7 +57,7 @@ describe('Ed25519 tests', () => {
     ];
 
     for (const invalidDer of invalidDers) {
-      const response = ed25519.derToEd25519(invalidDer);
+      const response = derToEd25519(invalidDer);
       expect(response).toBe(null);
     }
   });

@@ -22,7 +22,7 @@
 
 import _ from 'lodash';
 
-class ContractLog {
+export default class ContractLog {
   /**
    * Parses contract_log table columns into object
    */
@@ -57,5 +57,3 @@ class ContractLog {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {ContractLog};

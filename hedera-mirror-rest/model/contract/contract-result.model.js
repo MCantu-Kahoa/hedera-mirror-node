@@ -22,7 +22,7 @@
 
 import _ from 'lodash';
 
-class ContractResult {
+export default class ContractResult {
   /**
    * Parses contract_result table columns into object
    */
@@ -59,5 +59,3 @@ class ContractResult {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {ContractResult};

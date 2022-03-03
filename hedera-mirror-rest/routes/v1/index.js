@@ -31,18 +31,18 @@ import {router as TransactionRouter, resource as TransactionResource} from './tr
 const router = Router();
 
 const defaultRoutes = [
-  {path: `${AccountResource}`, router: AccountRouter},
-  {path: `${BalanceResource}`, router: BalanceRouter},
-  {path: `${ContractResource}`, router: ContractRouter},
-  {path: `${NetworkResource}`, router: NetworkRouter},
-  {path: `${ScheduleResource}`, router: ScheduleRouter},
-  {path: `${TokenResource}`, router: TokenRouter},
-  {path: `${TopicResource}`, router: TopicRouter},
-  {path: `${TransactionResource}`, router: TransactionRouter},
+  {path: `/${AccountResource}`, router: AccountRouter},
+  {path: `/${BalanceResource}`, router: BalanceRouter},
+  {path: `/${ContractResource}`, router: ContractRouter},
+  {path: `/${NetworkResource}`, router: NetworkRouter},
+  {path: `/${ScheduleResource}`, router: ScheduleRouter},
+  {path: `/${TokenResource}`, router: TokenRouter},
+  {path: `/${TopicResource}`, router: TopicRouter},
+  {path: `/${TransactionResource}`, router: TransactionRouter},
 ];
 
 defaultRoutes.forEach((route) => {
   router.use(route.path, route.router);
 });
 
-export {router}
+export {router};

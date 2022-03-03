@@ -20,24 +20,18 @@
 
 'use strict';
 
-import _ from 'lodash';;
+import _ from 'lodash';
 
 import * as utils from '../utils/utils.js';
 import * as constants from '../utils/constants.js';
 import * as EntityId from '../entityId.js';
-import TransactionId from '../utils/transactionId.js';
+import {TransactionId, fromString} from '../utils/transactionId.js';
 import {NotFoundError} from '../errors/notFoundError.js';
-import {
-  AssessedCustomFee,
-  CryptoTransfer,
-  NftTransfer,
-  TokenTransfer,
-  Transaction,
-  TransactionResult,
-  
-} from '../model/index.js';
+import {AssessedCustomFee, CryptoTransfer, NftTransfer, TokenTransfer, Transaction} from '../model/index.js';
 
-import  {AssessedCustomFeeViewModel, NftTransferViewModel} from '../viewmodel/index.js';
+import {AssessedCustomFeeViewModel, NftTransferViewModel} from '../viewmodel/index.js';
+import * as TransactionType from '../model/transaction/transaction-type.model.js';
+import * as TransactionResult from '../model/transaction/transaction-result.model.js';
 
 const transactionFields = [
   Transaction.CHARGED_TX_FEE,
@@ -606,7 +600,7 @@ const getTransactions = async (req, res) => {
  * @return {{query: string, params: string[]}}
  */
 const extractSqlFromTransactionsByIdRequest = (transactionIdStr, filters) => {
-  const transactionId = TransactionId.fromString(transactionIdStr);
+  const transactionId = fromString(transactionIdStr);
   const params = [transactionId.getEntityId().getEncodedId(), transactionId.getValidStartNs()];
   const conditions = [
     `${Transaction.getFullName(Transaction.PAYER_ACCOUNT_ID)} = $1`,
@@ -680,7 +674,6 @@ const getTransactionsById = async (req, res) => {
   };
 };
 
-
 export {
   createAssessedCustomFeeList,
   createCryptoTransferList,
@@ -694,5 +687,4 @@ export {
   buildWhereClause,
   getTransactionsInnerQuery,
   getTransactionsOuterQuery,
-}
-
+};

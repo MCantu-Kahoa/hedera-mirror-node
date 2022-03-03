@@ -20,8 +20,8 @@
 
 'use strict';
 
-const CompositeRecordFile = require('../../stream/compositeRecordFile');
-const testUtils = require('./testUtils');
+import CompositeRecordFile from '../../stream/compositeRecordFile.js';
+import * as testUtils from './testUtils';
 
 describe('unsupported record file version', () => {
   testUtils.testRecordFileUnsupportedVersion([3, 4, 6], CompositeRecordFile);

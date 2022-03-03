@@ -20,8 +20,8 @@
 
 'use strict';
 
-const FullRecordFile = require('../../stream/fullRecordFile');
-const testUtils = require('./testUtils');
+import FullRecordFile from '../../stream/fullRecordFile.js';
+import * as testUtils from './testUtils';
 
 describe('unsupported record file version', () => {
   testUtils.testRecordFileUnsupportedVersion([3, 4, 5, 6], FullRecordFile);

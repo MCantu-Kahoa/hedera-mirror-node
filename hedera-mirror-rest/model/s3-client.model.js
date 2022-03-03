@@ -22,7 +22,7 @@
 
 import AWS from 'aws-sdk';
 import querystring from 'querystring';
-import {getConfig as getProjectConfig} from '../config.js';
+import {getConfig as config} from '../config.js';
 import {cloudProviders, defaultCloudProviderEndpoints} from '../utils/constants.js';
 
 class S3Client {
@@ -65,7 +65,7 @@ class S3Client {
 }
 
 const buildS3ConfigFromStreamsConfig = () => {
-  const {cloudProvider, endpointOverride, gcpProjectId, accessKey, secretKey, region} = config.stateproof.streams;
+  const {cloudProvider, endpointOverride, gcpProjectId, accessKey, secretKey, region} = config().stateproof.streams;
   const hasEndpointOverride = !!endpointOverride;
   const isGCP = cloudProvider === cloudProviders.GCP;
 
@@ -101,6 +101,4 @@ const createS3Client = () => {
   return new S3Client(new AWS.S3(s3Config), !!s3Config.accessKeyId, gcpProjectId);
 };
 
-export default {
-  createS3Client,
-};
+export {createS3Client};

@@ -22,7 +22,7 @@
 
 import * as constants from '../../utils/constants.js';
 
-class CustomFee {
+export default class CustomFee {
   /**
    * Parses custom_fee table columns into object
    */
@@ -69,5 +69,3 @@ class CustomFee {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {CustomFee};

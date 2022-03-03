@@ -20,14 +20,14 @@
 
 'use strict';
 
-import ContractLogResultsViewModel  from './contractResultLogViewModel.js';
-import * as EntityId from '../entityId.js'
-import * as utils from '../utils/utils.js'
+import ContractLogResultsViewModel from './contractResultLogViewModel.js';
+import * as EntityId from '../entityId.js';
+import * as utils from '../utils/utils.js';
 
 /**
  * Contract log view model
  */
-class ContractLogViewModel extends ContractLogResultsViewModel {
+export default class ContractLogViewModel extends ContractLogResultsViewModel {
   /**
    * Constructs contractLog view model
    *
@@ -41,5 +41,3 @@ class ContractLogViewModel extends ContractLogResultsViewModel {
     });
   }
 }
-
-export default {ContractLogViewModel};

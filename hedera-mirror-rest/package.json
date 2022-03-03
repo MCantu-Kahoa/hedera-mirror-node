@@ -13,7 +13,7 @@
     "integrationtest": "jest --testPathPattern='/__tests__/integration.test.js|/__tests__/service/.*\\.test\\.js' --collectCoverage=false",
     "lint": "eslint --ignore-pattern node_modules/ --fix .",
     "postinstall": "node ./npm_scripts/postinstall.js",
-    "test": "jest --testPathPattern='__tests__/.*\\.test\\.js'"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern='__tests__/.*\\.test\\.js'"
   },
   "author": "Hedera Mirror Node Team",
   "comments": {
@@ -127,7 +127,8 @@
     "setupFilesAfterEnv": [
       "./__tests__/jest.setup.js"
     ],
-    "testEnvironment": "node",
+    "testEnvironment": "jest-environment-node",
+    "transform": {},
     "testRunner": "jest-circus/runner",
     "verbose": true
   },

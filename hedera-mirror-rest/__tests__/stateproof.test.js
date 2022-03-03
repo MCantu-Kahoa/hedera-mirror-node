@@ -20,20 +20,21 @@
 
 'use strict';
 
-const _ = require('lodash');
-const log4js = require('log4js');
-const {mockRequest, mockResponse} = require('mock-req-res');
-const {Readable} = require('stream');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const constants = require('../constants');
-const config = require('../config');
-const s3client = require('../s3client');
-const stateproof = require('../stateproof');
-const {CompositeRecordFile} = require('../stream');
-const TransactionId = require('../transactionId');
-const EntityId = require('../entityId');
-const {opsMap} = require('../utils');
+import _ from 'lodash';
+import log4js from 'log4js';
+import {mockRequest, mockResponse} from 'mock-req-res';
+import {Readable} from 'stream';
+import rewire from 'rewire';
+import sinon from 'sinon';
+
+import * as constants from '../utils/constants.js';
+import {getConfig as config} from '../config.js';
+import {createS3Client} from '../model/s3-client.model.js';
+import {StateproofController as stateproof} from '../controllers/index';
+import {CompositeRecordFile, SignatureFile} from '../stream/index.js';
+import {TransactionId, fromString} from '../utils/transactionId.js';
+import * as EntityId from '../entityId.js';
+import {opsMap} from '../utils/utils.js';
 
 const logger = log4js.getLogger();
 // need to set the globals here so when __set__ them with rewire it won't throw ReferenceError 'xxx is not defined'
@@ -65,7 +66,7 @@ describe('getSuccessfulTransactionConsensusNs', () => {
   const validQueryResult = {
     rows: [{consensus_timestamp: expectedValidConsensusNs}],
   };
-  const transactionId = TransactionId.fromString('0.0.1-1234567891-000111222');
+  const transactionId = fromString('0.0.1-1234567891-000111222');
 
   test('with transaction found in db table', async () => {
     const fakeQuery = sinon.fake.resolves(validQueryResult);
@@ -352,7 +353,7 @@ describe('downloadRecordStreamFilesFromObjectStorage', () => {
   const sliceSize = 5;
 
   beforeEach(() => {
-    config.stateproof = {
+    config().stateproof = {
       streams: {
         bucketName: 'test-bucket-name',
       },
@@ -360,7 +361,7 @@ describe('downloadRecordStreamFilesFromObjectStorage', () => {
   });
 
   const stubS3ClientGetObject = (stub) => {
-    sinon.stub(s3client, 'createS3Client').returns({
+    sinon.stub('createS3Client').returns({
       getObject: stub,
     });
   };
@@ -510,7 +511,7 @@ describe('getStateProofForTransaction', () => {
   let alwaysThrowErrorStub;
 
   beforeEach(() => {
-    stateproofRewired = rewire('../stateproof');
+    stateproofRewired = rewire('../controllers/stateproof.controller');
     req = mockRequest();
     res = mockResponse();
 

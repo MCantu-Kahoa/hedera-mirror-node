@@ -20,7 +20,7 @@
 
 'use strict';
 
-import { AccountAlias } from '../model/account/account-alias.model.js';
+import {AccountAlias} from '../model/index.js';
 import base32 from '../utils/base32.js';
 import {getAccountContractUnionQueryWithOrder} from '../model/account/account-contract.model.js';
 import * as constants from '../utils/constants.js';
@@ -539,10 +539,11 @@ export const getOneAccount = async (req, res) => {
   res.locals[constants.responseDataLabel] = ret;
 };
 
-if (utils.isTestEnv()) {
-  Object.assign(module.exports, {
-    getAccountAliasQuery,
-    getBalanceParamValue,
-    processRow,
-  });
-}
+export {getBalanceParamValue, processRow};
+// if (utils.isTestEnv()) {
+//   Object.assign(module.exports, {
+//     getAccountAliasQuery,
+//     getBalanceParamValue,
+//     processRow,
+//   });
+// }

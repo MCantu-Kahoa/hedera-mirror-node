@@ -20,8 +20,9 @@
 
 'use strict';
 
-const {SHA_384} = require('../../stream/hashObject');
-const {calculateRunningHash} = require('../../stream/runningHash');
+import HashObject from '../../stream/hashObject.js';
+import {calculateRunningHash} from '../../stream/runningHash.js';
+const {SHA_384} = HashObject;
 
 test('calculateRunningHash', () => {
   const header = Buffer.from([0xde, 0xad, 0xbe, 0xef]);

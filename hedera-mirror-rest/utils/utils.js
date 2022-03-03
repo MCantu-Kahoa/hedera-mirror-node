@@ -20,7 +20,7 @@
 
 'use strict';
 
-import { TransactionID } from '@hashgraph/proto';
+import {TransactionID} from '@hashgraph/proto';
 import _ from 'lodash';
 import crypto from 'crypto';
 import anonymize from 'ip-anonymize';
@@ -29,20 +29,21 @@ import {multiply, bignumber, floor} from 'mathjs';
 import util from 'util';
 
 import * as constants from './constants.js';
-import * as EntityId from '../entityId.js'
-import {getConfig} from '../config.js';
+import * as EntityId from '../entityId.js';
+import {getConfig as config} from '../config.js';
 import * as ed25519 from '../ed25519.js';
-import { DbError } from '../errors/dbError.js';
-import { InvalidArgumentError } from '../errors/invalidArgumentError.js';
-import { InvalidClauseError } from '../errors/invalidClauseError.js';
-import { TransactionResult, TransactionType } from '../model/index.js';
-import { keyTypes } from './constants.js';
+import {DbError} from '../errors/dbError.js';
+import {InvalidArgumentError} from '../errors/invalidArgumentError.js';
+import {InvalidClauseError} from '../errors/invalidClauseError.js';
+import * as TransactionResult from '../model/transaction/transaction-result.model.js';
+import * as TransactionType from '../model/transaction/transaction-type.model.js';
+import {keyTypes} from './constants.js';
 
 import pg from 'pg';
 import pgRange from 'pg-range';
-import {Pool as MockPool}  from '../__tests__/mockpool.js';
+import {Pool as MockPool} from '../__tests__/mockpool.js';
 
-const responseLimit = getConfig().response.limit;
+const responseLimit = config().response.limit;
 const resultSuccess = TransactionResult.getSuccessProtoId();
 
 const opsMap = {
@@ -270,17 +271,17 @@ const validateReq = (req) => {
           code: InvalidArgumentError.PARAM_COUNT_EXCEEDS_MAX_CODE,
           key,
           count: req.query[key].length,
-          max:  getConfig().maxRepeatedQueryParameters,
+          max: config().maxRepeatedQueryParameters,
         });
         continue;
       }
       for (const val of req.query[key]) {
         if (!paramValidityChecks(key, val)) {
-          badParams.push({ code: InvalidArgumentError.INVALID_ERROR_CODE, key });
+          badParams.push({code: InvalidArgumentError.INVALID_ERROR_CODE, key});
         }
       }
     } else if (!paramValidityChecks(key, req.query[key])) {
-      badParams.push({ code: InvalidArgumentError.INVALID_ERROR_CODE, key });
+      badParams.push({code: InvalidArgumentError.INVALID_ERROR_CODE, key});
     }
   }
 
@@ -289,7 +290,7 @@ const validateReq = (req) => {
   }
 };
 
-const isRepeatedQueryParameterValidLength = (values) => values.length <=  getConfig().maxRepeatedQueryParameters;
+const isRepeatedQueryParameterValidLength = (values) => values.length <= config().maxRepeatedQueryParameters;
 
 const parseTimestampParam = (timestampParam) => {
   // Expect timestamp input as (a) just seconds,
@@ -318,13 +319,13 @@ const parseOperatorAndValueFromQueryParam = (paramValue) => {
   const splitItem = paramValue.split(':');
   if (splitItem.length === 1) {
     // No operator specified. Just use "eq:"
-    return { op: opsMap.eq, value: splitItem[0] };
+    return {op: opsMap.eq, value: splitItem[0]};
   }
   if (splitItem.length === 2) {
     if (!(splitItem[0] in opsMap)) {
       return null;
     }
-    return { op: opsMap[splitItem[0]], value: splitItem[1] };
+    return {op: opsMap[splitItem[0]], value: splitItem[1]};
   }
   return null;
 };
@@ -561,8 +562,8 @@ const convertMySqlStyleQueryToPostgres = (sqlQuery, startIndex = 1) => {
  */
 const getPaginationLink = (req, isEnd, field, lastValue, order) => {
   let urlPrefix;
-  if ( getConfig().port !== undefined &&  getConfig().response.includeHostInLink) {
-    urlPrefix = `${req.protocol}://${req.hostname}:${ getConfig().port}`;
+  if (config().port !== undefined && config().response.includeHostInLink) {
+    urlPrefix = `${req.protocol}://${req.hostname}:${config().port}`;
   } else {
     urlPrefix = '';
   }
@@ -953,7 +954,7 @@ const parseTokenBalances = (tokenBalances) => {
   return tokenBalances
     .filter((x) => !_.isNil(x.token_id))
     .map((tokenBalance) => {
-      const { token_id: tokenId, balance } = tokenBalance;
+      const {token_id: tokenId, balance} = tokenBalance;
       return {
         token_id: EntityId.parse(tokenId).toString(),
         balance,
@@ -1026,7 +1027,6 @@ const getPoolClass = (mock = false) => {
  * Loads and installs pg-range for pg
  */
 const loadPgRange = async () => {
-
   pgRange.install(pg);
 };
 
@@ -1086,14 +1086,14 @@ const checkTimestampRange = (timestampFilters) => {
     valuesByOp[opsMap.lt].length > 0 ? BigInt(valuesByOp[opsMap.lt][0]) - 1n : BigInt(valuesByOp[opsMap.lte][0]);
   const difference = latest - earliest + 1n;
 
-  if (difference > config.maxTimestampRangeNs || difference <= 0n) {
+  if (difference > config().maxTimestampRangeNs || difference <= 0n) {
     throw new InvalidArgumentError(
-      `Timestamp lower and upper bounds must be positive and within ${config.maxTimestampRange}`
+      `Timestamp lower and upper bounds must be positive and within ${config().maxTimestampRange}`
     );
   }
 };
 
-export { 
+export {
   addHexPrefix,
   buildAndValidateFilters,
   buildComparatorFilter,
@@ -1148,4 +1148,4 @@ export {
   getLimitParamValue,
   validateAndParseFilters,
   validateFilters,
-}
+};

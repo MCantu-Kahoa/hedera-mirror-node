@@ -20,7 +20,7 @@
 
 'use strict';
 
-class TransactionId {
+export default class TransactionId {
   constructor(payerAccountId, validStartTimestamp, nonce, scheduled) {
     this.payerAccountId = payerAccountId;
     this.nonce = nonce;
@@ -28,5 +28,3 @@ class TransactionId {
     this.validStartTimestamp = validStartTimestamp;
   }
 }
-
-export default {TransactionId};

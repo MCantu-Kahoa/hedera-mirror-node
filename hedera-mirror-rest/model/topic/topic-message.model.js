@@ -22,7 +22,7 @@
 
 import _ from 'lodash';
 
-class TopicMessage {
+export default class TopicMessage {
   /**
    * Parses topic_message table columns into object
    */
@@ -58,5 +58,3 @@ class TopicMessage {
     return `${this.tableAlias}.${columnName}`;
   }
 }
-
-export default {TopicMessage};

@@ -22,12 +22,12 @@
 
 import _ from 'lodash';
 import {getConfig} from '../config.js';
-import * as constants from '../utils/constants.js'
-import * as EntityId from '../entityId.js'
-import s3client from '../model/s3-client.model.js';
+import * as constants from '../utils/constants.js';
+import * as EntityId from '../entityId.js';
+import {createS3Client} from '../model/s3-client.model.js';
 import {CompositeRecordFile} from '../stream/index.js';
-import TransactionId from '../utils/transactionId.js';
-import * as utils from '../utils/utils.js'
+import {TransactionId} from '../utils/transactionId.js';
+import * as utils from '../utils/utils.js';
 import {DbError} from '../errors/dbError.js';
 import {NotFoundError} from '../errors/notFoundError.js';
 import {FileDownloadError} from '../errors/fileDownloadError.js';
@@ -161,7 +161,7 @@ let getAddressBooksAndNodeAccountIdsByConsensusNs = async (consensusNs) => {
  */
 let downloadRecordStreamFilesFromObjectStorage = async (...partialFilePaths) => {
   const {bucketName} = getConfig().stateproof.streams;
-  const s3Client = s3client.createS3Client();
+  const s3Client = createS3Client();
 
   const fileObjects = await Promise.all(
     _.map(partialFilePaths, async (partialFilePath) => {
@@ -338,16 +338,23 @@ const getStateProofForTransaction = async (req, res) => {
 
 export {
   getStateProofForTransaction,
+  getAddressBooksAndNodeAccountIdsByConsensusNs,
+  getQueryParamValues,
+  getRCDFileInfoByConsensusNs,
+  getSuccessfulTransactionConsensusNs,
+  downloadRecordStreamFilesFromObjectStorage,
+  canReachConsensus,
+  formatCompactableRecordFile,
 };
 
-if (utils.isTestEnv()) {
-  Object.assign(module.exports, {
-    getAddressBooksAndNodeAccountIdsByConsensusNs,
-    getQueryParamValues,
-    getRCDFileInfoByConsensusNs,
-    getSuccessfulTransactionConsensusNs,
-    downloadRecordStreamFilesFromObjectStorage,
-    canReachConsensus,
-    formatCompactableRecordFile,
-  });
-}
+// if (utils.isTestEnv()) {
+//   Object.assign(module.exports, {
+//     getAddressBooksAndNodeAccountIdsByConsensusNs,
+//     getQueryParamValues,
+//     getRCDFileInfoByConsensusNs,
+//     getSuccessfulTransactionConsensusNs,
+//     downloadRecordStreamFilesFromObjectStorage,
+//     canReachConsensus,
+//     formatCompactableRecordFile,
+//   });
+// }
